@@ -1,0 +1,63 @@
+# =============== #
+# Unity gitignore #
+# =============== #
+
+# Ignore everything in the Library, Logs, and Temp folders
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+#UserSettings/
+
+# Avoid committing Auto-generated VS/JetBrains Rider files
+.vs/
+.idea/
+*.user
+*.pidb
+*.suo
+*.tmp
+*.svd
+*.pdb
+*.opendb
+*.VC.db
+
+# Ignore Unity-generated metadata files
+ExportedObj/
+.consulo/
+.gradle/
+Packages/com.unity.package-manager-ui/
+
+# Ignore Unity crash reports
+CrashReports/
+*.crash
+
+# Ignore local Unity settings
+*.swp
+*.lock
+*.lock.json
+.DS_Store
+Thumbs.db
+
+# Ignore log files
+*.log
+*.log.*
+*.bak
+
+# Ignore cache and imported assets
+# DO NOT IGNORE Assets/ folder itself!
+Assets/AssetStoreTools*
+Assets/StreamingAssets*
+
+# Ignore builds and user-specific files
+*.apk
+*.aab
+*.unitypackage
+*.exe
+*.app
+*.ipa
+
+# Ignore Rider / JetBrains specific files
+.idea/
+*.iml
