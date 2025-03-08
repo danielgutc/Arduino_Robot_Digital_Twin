@@ -36,7 +36,7 @@ public class CrawlerDriveController : MonoBehaviour
     {
         Debug.Log($"Collision detected with: {collision.gameObject.name}");
 
-        if (collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Obstacle"))
         {
             if (replacementPrefab != null)
             {
