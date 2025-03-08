@@ -127,7 +127,9 @@ public class ArduinoController : MonoBehaviour
             }
             else
             {
-                state = 3;
+                // Generate a random number from 3 to 4 to determine the direction to turn
+                int randomDirection = UnityEngine.Random.Range(3, 5);
+                state = randomDirection;
             }
         }
         else if (state == 1) // Forward
@@ -162,7 +164,7 @@ public class ArduinoController : MonoBehaviour
             }
             else
             {
-                Move(MAX_SPEED, -MAX_SPEED);
+                Move(MAX_SPEED / 2, -MAX_SPEED / 2);
             }
             
         }
@@ -174,7 +176,7 @@ public class ArduinoController : MonoBehaviour
             }
             else
             {
-                Move(-MAX_SPEED, MAX_SPEED);
+                Move(-MAX_SPEED / 2, MAX_SPEED / 2);
             }
         }
     }
