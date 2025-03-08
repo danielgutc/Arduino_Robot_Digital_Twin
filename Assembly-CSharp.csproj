@@ -67,8 +67,8 @@
     <Compile Include="Assets\Scripts\DebugDisplay.cs" />
     <Compile Include="Assets\Scripts\CrawlerDriveController.cs" />
     <Compile Include="Assets\Scripts\MeEncoderOnBoard.cs" />
+    <Compile Include="Assets\Scripts\I2CBus.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
-    <Compile Include="Assets\Scripts\I2CCommunication.cs" />
     <Compile Include="Assets\Scripts\TFminiS.cs" />
   </ItemGroup>
   <ItemGroup>

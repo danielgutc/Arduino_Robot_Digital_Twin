@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
-public class I2CCommunication : MonoBehaviour
+public class I2CBus : MonoBehaviour
 {
     private Dictionary<int, Action<int>> deviceRegistry = new Dictionary<int, Action<int>>();
 

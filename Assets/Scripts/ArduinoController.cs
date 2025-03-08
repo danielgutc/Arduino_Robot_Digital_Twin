@@ -1,9 +1,10 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ArduinoController : MonoBehaviour
 {
-    private I2CCommunication i2c;
+    private I2CBus i2c;
     public MeEncoderOnBoard leftMotor;
     public MeEncoderOnBoard rightMotor;
     public MeUltrasonicSensor ultrasonicSensor;
@@ -12,70 +13,73 @@ public class ArduinoController : MonoBehaviour
 
     private CrawlerDriveController crawlerDriveController;
 
-    public int openAngle = 90;
+    public int maxScanAngle = 45;
     public int MIN_DISTANCE = 1000;
-    public int WEIGHT_DISTANCE = 1;
-    public int MAX_SPEED = 75;
-    //private const float M_PI = 3.14159265358979323846f;
-
-    private int speed;
+    public int MAX_SPEED = 100; 
+    
     private int distanceLidar;
     private int distanceUltrasonic;
-    private int state = 0; // 0 - stopped; 1 - forward; 2 - backguard; 3 - rotating right; 4 - rotating left
-    private float angle;
-    
+    private int state = 0; // 0 - stopped; 1 - forward; 2 - backguard; 3 - rotating left; 4 - rotating right
+    private int angle;
+    private int currentScanDirection = 1; // Left = -1, Right = 1
+    private int currentScanAngle;
+    private bool currentScanObstacleDetected = false;
+    private bool obstacleDetected = false;
 
     void Start()
     {
         crawlerDriveController = FindFirstObjectByType<CrawlerDriveController>();
         crawlerDriveController.SetMotors(leftMotor, rightMotor);
         debugDisplay = FindFirstObjectByType<DebugDisplay>();
-
-        i2c = FindFirstObjectByType<I2CCommunication>();
+        i2c = FindFirstObjectByType<I2CBus>();
         i2c.RegisterDevice(1, ReceiveServoAngle);
-        i2c.TransmitData(2, (int)openAngle);
+
+        currentScanAngle = maxScanAngle;
+        SendServoAngle(currentScanAngle);
     }
 
     void Update()
     {
-        // Read sensor data
         UpdateDistanceUltrasonic();
         UpdateDistanceLidar();
-
-        /*// Control logic based on sensor inputs
-        if (distanceUltrasonic < MIN_DISTANCE)
-        {
-            speed = 0;
-            leftMotor.SetMotorSpeed(speed);
-            rightMotor.SetMotorSpeed(speed);
-            Debug.Log("Obstacle detected! Stopping motors.");
-        }
-        else if (distanceLidar < MIN_DISTANCE * 10)
-        {
-            speed = 50;
-            leftMotor.SetMotorSpeed(-speed);
-            rightMotor.SetMotorSpeed(speed);
-            Debug.Log("Object close, moving slowly.");
-        }
-        else
-        {
-            speed = 100;
-            leftMotor.SetMotorSpeed(-speed);
-            rightMotor.SetMotorSpeed(speed);
-            Debug.Log("Path clear, moving normally.");
-        }*/
-
+        ObstacleDetection();
         Move();
 
-        debugDisplay.UpdateDisplay($"Speed: {speed}, Lidar: {distanceLidar}, Ultrasonic: {distanceUltrasonic}, Angle: {angle}");
+        debugDisplay.UpdateDisplay(
+            $"Speed: {MAX_SPEED} \n" +
+            $"Lidar: {distanceLidar} \n" +
+            $"Ultrasonic: {distanceUltrasonic} \n" +
+            $"Angle: {angle} \n" +
+            $"ScanObstacleDetected: {currentScanObstacleDetected} \n" +
+            $"ObstacleDetected: {obstacleDetected} \n");
     }
 
-    private void ReceiveServoAngle(int angle)
+    private void ObstacleDetection()
     {
-        this.angle = angle;
-        Debug.Log($"Arduino received servo angle: {angle}");
-    }
+        if (angle < 0 && currentScanDirection == 1)
+        {
+            obstacleDetected = currentScanObstacleDetected;
 
+            currentScanObstacleDetected = false;
+            currentScanDirection = -1;
+        }
+        if (angle > maxScanAngle && currentScanDirection == -1)
+        {
+            obstacleDetected = currentScanObstacleDetected;
+
+            currentScanObstacleDetected = false;
+            currentScanDirection = 1;
+        }   
+
+        if (distanceLidar < MIN_DISTANCE)
+        {
+            if (!currentScanObstacleDetected)
+            {
+                currentScanObstacleDetected = true;
+            }
+        }
+    }
+    
     private void UpdateDistanceLidar()
     {
         lidarSensor.ReadSensor();
@@ -102,29 +106,76 @@ public class ArduinoController : MonoBehaviour
         rightMotor.SetMotorSpeed((int)rightSpeed);
     }
 
-    void Move()
+    private void SendServoAngle(int angle)
     {
-        float leftSpeed = MAX_SPEED;
-        float rightSpeed = MAX_SPEED;
-        double speedModifier = 0;
-        double angleRadians = 0;
-        
-        angleRadians = (Math.PI * (angle - 90)) / 180;
-        speedModifier = 1 - (Math.Abs(Math.Sin(angleRadians)) * (1 - Math.Exp(-WEIGHT_DISTANCE * distanceLidar)));
+        i2c.TransmitData(2, angle);
+    }
 
+    private void ReceiveServoAngle(int angle)
+    {
+        this.angle = angle;
+        Debug.Log($"Arduino received servo angle: {angle}");
+    }
 
-        if (angle < 90 && distanceLidar < MIN_DISTANCE)
+    private void Move()
+    {
+        if (state == 0) // Stopped
         {
-            leftSpeed = MAX_SPEED * (float)speedModifier;
+            if (!obstacleDetected)
+            {
+                state = 1;
+            }
+            else
+            {
+                state = 3;
+            }
         }
-
-        if (angle > 90 && distanceLidar < MIN_DISTANCE)
+        else if (state == 1) // Forward
         {
-            rightSpeed = MAX_SPEED * (float)speedModifier;
+            if (obstacleDetected)
+            {
+                Move(0, 0);
+                state = 0;
+            }
+            else
+            {
+                Move(MAX_SPEED, MAX_SPEED);
+            }
+            
         }
-
-        Debug.Log($" AngleRadians: {angleRadians}, SpeedModifier: {speedModifier}, LeftSpeed: {leftSpeed}, RightSpeed: {rightSpeed}");
-
-        Move(leftSpeed, rightSpeed);
+        else if (state == 2) // Backward
+        {
+            if (!obstacleDetected)
+            {
+                state = 4; // Turn right after backing
+            }
+            else
+            {
+                Move(-MAX_SPEED, -MAX_SPEED);
+            }
+        }
+        else if (state == 3) // Turn left
+        {
+            if (!obstacleDetected)
+            {
+                state = 0;
+            }
+            else
+            {
+                Move(MAX_SPEED, -MAX_SPEED);
+            }
+            
+        }
+        else if (state == 4) // Turn right
+        {
+            if (!obstacleDetected)
+            {
+                state = 0;
+            }
+            else
+            {
+                Move(-MAX_SPEED, MAX_SPEED);
+            }
+        }
     }
 }

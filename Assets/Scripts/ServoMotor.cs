@@ -10,18 +10,25 @@ public class ServoMotor : MonoBehaviour
     private int direction = 1;
     private int minAngle = 0;
     private int maxAngle = 180;
-    private I2CCommunication i2c;
+    private I2CBus i2c;
 
     void Start()
     {
-        i2c = FindFirstObjectByType<I2CCommunication>();
+        i2c = FindFirstObjectByType<I2CBus>();
         i2c.RegisterDevice(2, ReceiveServoAngle);
     }
 
     private void ReceiveServoAngle(int openAngle)
     {
-        minAngle = 90 - openAngle / 2;
-        maxAngle = 90 + openAngle / 2;
+        if (openAngle == 0)
+        {
+            minAngle = maxAngle = 90;
+        }
+        else
+        {
+            minAngle = 90 - openAngle / 2;
+            maxAngle = 90 + openAngle / 2;
+        }
     }
 
     void Update()
@@ -43,6 +50,6 @@ public class ServoMotor : MonoBehaviour
         servoArm.localRotation = Quaternion.Euler(0, angle, 0);
 
         // Simulate sending the angle via I2C
-        i2c.TransmitData(1, (int)angle);
+        i2c.TransmitData(1, (int)angle * direction);
     }
 }
