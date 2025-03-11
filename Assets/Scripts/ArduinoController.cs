@@ -16,15 +16,22 @@ public class ArduinoController : MonoBehaviour
     public int maxScanAngle = 45;
     public int MIN_DISTANCE = 1000;
     public int MAX_SPEED = 100; 
-    
+    public int MAX_SERVO_ANGLE = 180;
+
     private int distanceLidar;
     private int distanceUltrasonic;
     private int state = 0; // 0 - stopped; 1 - forward; 2 - backguard; 3 - rotating left; 4 - rotating right
     private int angle;
     private int currentScanDirection = 1; // Left = -1, Right = 1
-    private int currentScanAngle;
+
     private bool currentScanObstacleDetected = false;
     private bool obstacleDetected = false;
+
+    private int currentScanMaxDistance = -1;
+    private int currentScanMaxDistanceAngle = -1;
+    private int maxDistanceAngle = -1;
+    private bool waitNextScan = false;
+
 
     void Start()
     {
@@ -34,8 +41,7 @@ public class ArduinoController : MonoBehaviour
         i2c = FindFirstObjectByType<I2CBus>();
         i2c.RegisterDevice(1, ReceiveServoAngle);
 
-        currentScanAngle = maxScanAngle;
-        SendServoAngle(currentScanAngle);
+        SendServoAngle(maxScanAngle);
     }
 
     void Update()
@@ -51,24 +57,43 @@ public class ArduinoController : MonoBehaviour
             $"Ultrasonic: {distanceUltrasonic} \n" +
             $"Angle: {angle} \n" +
             $"ScanObstacleDetected: {currentScanObstacleDetected} \n" +
-            $"ObstacleDetected: {obstacleDetected} \n");
+            $"ObstacleDetected: {obstacleDetected} \n" +
+            $"CurrentScanMaxDistance: {currentScanMaxDistance} \n" +
+            $"CurrentScanMaxDistanceAngle: {currentScanMaxDistanceAngle} \n" +
+            $"MaxDistanceAngle: {maxDistanceAngle} \n" +
+            $"WaitNextScan: {waitNextScan} \n"
+            );
     }
 
     private void ObstacleDetection()
     {
         if (angle < 0 && currentScanDirection == 1)
         {
-            obstacleDetected = currentScanObstacleDetected;
-
+            if (!waitNextScan)
+            {
+                obstacleDetected = currentScanObstacleDetected;
+                maxDistanceAngle = currentScanMaxDistanceAngle;                
+            }
             currentScanObstacleDetected = false;
             currentScanDirection = -1;
+            currentScanMaxDistanceAngle = -1;
+            currentScanMaxDistance = -1;
+            waitNextScan = false;
+
         }
-        if (angle > maxScanAngle && currentScanDirection == -1)
+        if (angle > 0 && currentScanDirection == -1)
         {
-            obstacleDetected = currentScanObstacleDetected;
+            if (!waitNextScan)
+            {
+                maxDistanceAngle = currentScanMaxDistanceAngle;
+                obstacleDetected = currentScanObstacleDetected;
+            }
 
             currentScanObstacleDetected = false;
             currentScanDirection = 1;
+            currentScanMaxDistanceAngle = -1;
+            currentScanMaxDistance = -1;
+            waitNextScan = false;
         }   
 
         if (distanceLidar < MIN_DISTANCE)
@@ -78,6 +103,9 @@ public class ArduinoController : MonoBehaviour
                 currentScanObstacleDetected = true;
             }
         }
+        
+        currentScanMaxDistanceAngle = distanceLidar > currentScanMaxDistance? Math.Abs(angle) : currentScanMaxDistanceAngle;
+        currentScanMaxDistance = Math.Max(currentScanMaxDistance, distanceLidar);
     }
     
     private void UpdateDistanceLidar()
@@ -127,9 +155,10 @@ public class ArduinoController : MonoBehaviour
             }
             else
             {
-                // Generate a random number from 3 to 4 to determine the direction to turn
-                int randomDirection = UnityEngine.Random.Range(3, 5);
-                state = randomDirection;
+                SendServoAngle(MAX_SERVO_ANGLE);
+                waitNextScan = true;
+                maxDistanceAngle = -1;
+                state = 5; // Wait for the farthest direction
             }
         }
         else if (state == 1) // Forward
@@ -179,5 +208,23 @@ public class ArduinoController : MonoBehaviour
                 Move(-MAX_SPEED / 2, MAX_SPEED / 2);
             }
         }
+        else if (state == 5) // Find farthest direction
+        {
+            if (maxDistanceAngle != -1)
+            {
+                if (maxDistanceAngle < 90)
+                {
+                    state = 3;
+                }
+                else
+                {
+                    state = 4;
+                }
+
+                SendServoAngle(maxScanAngle);
+            }
+        }
     }
+
+
 }
