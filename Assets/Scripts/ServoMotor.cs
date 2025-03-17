@@ -1,55 +1,75 @@
 using UnityEngine;
-using System.Collections;
-using System;
 
 public class ServoMotor : MonoBehaviour
 {
-    public Transform servoArm; // Assign the servo arm GameObject in Unity
-    public float speed = 2f; // Degrees per frame
-    private float angle = 90; // Start at middle position
-    private int direction = 1;
-    private int minAngle = 0;
-    private int maxAngle = 180;
-    private I2CBus i2c;
+    public Transform servoArm; // Assign the transform of the servo-controlled object
+    public float minAngle = 0f;
+    public float maxAngle = 180f;
+    public float rotationSpeed = 0.1f; // Maximum degrees per second the servo can rotate
+    
+    private float currentAngle;
+    private float targetAngle;
+    private bool isAttached = false;
 
-    void Start()
+    private void Start()
     {
-        i2c = FindFirstObjectByType<I2CBus>();
-        i2c.RegisterDevice(2, ReceiveServoAngle);
-    }
-
-    private void ReceiveServoAngle(int openAngle)
-    {
-        if (openAngle == 0)
+        if (servoArm != null)
         {
-            minAngle = maxAngle = 90;
-        }
-        else
-        {
-            minAngle = 90 - openAngle / 2;
-            maxAngle = 90 + openAngle / 2;
+            isAttached = true;
+            Write(90); // Default to center position
+            currentAngle = 90f; // Initialize current angle
         }
     }
 
-    void Update()
+    public void Detach()
     {
-        // Simulate the servo oscillating between 0 and 180 degrees
-        angle += speed * direction;
-        if (angle >= maxAngle)
-        {
-            angle = maxAngle;
-            direction = -1;
-        }
-        else if (angle <= minAngle)
-        {
-            angle = minAngle;
-            direction = 1;
-        }
+        isAttached = false;
+    }
 
-        // Apply rotation to the servo arm (converting to a realistic servo rotation range)
-        servoArm.localRotation = Quaternion.Euler(0, angle, 0);
+    public void Write(int value)
+    {
+        if (!isAttached) return;
 
-        // Simulate sending the angle via I2C
-        i2c.TransmitData(1, (int)angle * direction);
+        if (value < 200) // Angle mode
+        {
+            targetAngle = Mathf.Clamp(value, minAngle, maxAngle);
+        }
+        else // Microseconds mode (not directly applicable in Unity, map to degrees)
+        {
+            targetAngle = Mathf.Clamp(
+                Mathf.InverseLerp(544, 2400, value) * (maxAngle - minAngle) + minAngle,
+                minAngle, maxAngle);
+        }
+    }
+
+    public void WriteMicroseconds(int value)
+    {
+        Write(value);
+    }
+
+    public int Read()
+    {
+        return Mathf.RoundToInt(targetAngle); // Returns the target angle, not the actual angle
+    }
+
+    public int ReadMicroseconds()
+    {
+        return Mathf.RoundToInt(Mathf.Lerp(544, 2400, (targetAngle - minAngle) / (maxAngle - minAngle)));
+    }
+
+    public bool Attached()
+    {
+        return isAttached;
+    }
+
+    private void Update()
+    {
+        if (isAttached && servoArm != null)
+        {
+            // Rotate smoothly towards the target angle within the rotation speed limit
+            float step = rotationSpeed * Time.deltaTime;
+            currentAngle = Mathf.MoveTowards(currentAngle, targetAngle, step);
+            servoArm.localRotation = Quaternion.Euler(0, currentAngle, 0); // Rotates around the Y-axis
+        }
     }
 }
