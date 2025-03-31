@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -17,6 +19,7 @@ public class ArduinoController : MonoBehaviour
     public int MIN_DISTANCE = 1000;
     public int MAX_SPEED = 100; 
     public int WIDE_SCAN_ANGLE = 180;
+    public int WAIT_SERVO_POSITION = 5;
     public float TURN_SPEED_MULT = 0.5f;
 
     private int distanceLidar;
@@ -33,6 +36,8 @@ public class ArduinoController : MonoBehaviour
     private int maxDistanceAngle = -1;
     private bool waitNextScan = false;
 
+    private float waitEndTime = -1;
+
 
     void Start()
     {
@@ -47,6 +52,19 @@ public class ArduinoController : MonoBehaviour
 
     void Update()
     {
+        // Simulate Wait time in Arduino. This is not required to be ported to Arduino
+        if (waitEndTime != -1)
+        {
+            if (Time.time < waitEndTime)
+            {
+                return;
+            }
+            else
+            {
+                waitEndTime = -1;
+            }    
+        }
+
         UpdateDistanceUltrasonic();
         UpdateDistanceLidar();
         ObstacleDetection();
@@ -62,7 +80,8 @@ public class ArduinoController : MonoBehaviour
             $"CurrentScanMaxDistance: {currentScanMaxDistance} \n" +
             $"CurrentScanMaxDistanceAngle: {currentScanMaxDistanceAngle} \n" +
             $"MaxDistanceAngle: {maxDistanceAngle} \n" +
-            $"WaitNextScan: {waitNextScan} \n"
+            $"WaitNextScan: {waitNextScan} \n" +
+            $"waitEndTime: {waitEndTime} \n"
             );
     }
     
@@ -214,7 +233,15 @@ public class ArduinoController : MonoBehaviour
             {
                 state = (maxDistanceAngle < 90) ? 3 : 4;
                 SendScanAngle(FORWARD_SCAN_ANGLE);
+                Wait(WAIT_SERVO_POSITION);
+                waitNextScan = true;
             }
         }
+    }
+
+    private void Wait(int v)
+    {
+        // calculate the next time
+        waitEndTime = Time.time + v;
     }
 }
