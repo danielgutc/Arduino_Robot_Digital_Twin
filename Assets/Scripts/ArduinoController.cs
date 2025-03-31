@@ -131,6 +131,7 @@ public class ArduinoController : MonoBehaviour
                 maxDistanceAngle = currentScanMaxDistanceAngle;
             }
             currentScanObstacleDetected = false;
+
             currentScanDirection = -1;
             currentScanMaxDistanceAngle = -1;
             currentScanMaxDistance = -1;
@@ -233,8 +234,9 @@ public class ArduinoController : MonoBehaviour
             {
                 state = (maxDistanceAngle < 90) ? 3 : 4;
                 SendScanAngle(FORWARD_SCAN_ANGLE);
-                Wait(WAIT_SERVO_POSITION);
                 waitNextScan = true;
+                Wait(WAIT_SERVO_POSITION);
+                //obstacleDetected = true;
             }
         }
     }
