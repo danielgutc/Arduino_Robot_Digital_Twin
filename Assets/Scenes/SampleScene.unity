@@ -2214,12 +2214,20 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5181631532660752417, guid: 36c292f65d1a9674f9f7f16b69bfd0aa, type: 3}
+      propertyPath: SERVO_SPEED
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5181631532660752417, guid: 36c292f65d1a9674f9f7f16b69bfd0aa, type: 3}
       propertyPath: SERVO_SPEED_MULT
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6836681994710516493, guid: 36c292f65d1a9674f9f7f16b69bfd0aa, type: 3}
       propertyPath: MAX_SPEED
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6836681994710516493, guid: 36c292f65d1a9674f9f7f16b69bfd0aa, type: 3}
+      propertyPath: MIN_DISTANCE
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 6836681994710516493, guid: 36c292f65d1a9674f9f7f16b69bfd0aa, type: 3}
       propertyPath: debugDisplay
@@ -2231,7 +2239,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6836681994710516493, guid: 36c292f65d1a9674f9f7f16b69bfd0aa, type: 3}
       propertyPath: FORWARD_SCAN_ANGLE
-      value: 60
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 6836681994710516493, guid: 36c292f65d1a9674f9f7f16b69bfd0aa, type: 3}
       propertyPath: WAIT_SERVO_POSITION
@@ -2243,7 +2251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8871745795009698779, guid: 36c292f65d1a9674f9f7f16b69bfd0aa, type: 3}
       propertyPath: rotationSpeed
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

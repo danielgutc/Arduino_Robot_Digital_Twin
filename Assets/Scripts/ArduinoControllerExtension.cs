@@ -16,7 +16,7 @@ public class ArduinoControllerExtension : MonoBehaviour
     void Start()
     {
         i2c = FindFirstObjectByType<I2CBus>();
-        i2c.RegisterDevice(2, ReceiveServoAngle);
+        i2c.RegisterDevice(2, ReceiveServoAngle, SendCurrentAngle);
 
         speed = SERVO_SPEED;
     }
@@ -44,6 +44,11 @@ public class ArduinoControllerExtension : MonoBehaviour
         }
     }
 
+    private int SendCurrentAngle()
+    {
+        return (int)angle * direction;
+    }
+
     void Update()
     {
         // Simulate the servo oscillating between 0 and 180 degrees
@@ -61,8 +66,5 @@ public class ArduinoControllerExtension : MonoBehaviour
 
         // Apply rotation to the servo arm (converting to a realistic servo rotation range)
         servoMotor.Write((int)angle);
-
-        // Simulate sending the angle via I2C
-        i2c.TransmitData(1, (int)angle * direction);
     }
 }

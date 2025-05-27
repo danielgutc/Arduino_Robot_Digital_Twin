@@ -17,6 +17,7 @@ public class ArduinoController : MonoBehaviour
 
     public int FORWARD_SCAN_ANGLE = 45;
     public int MIN_DISTANCE = 1000;
+    public float MIN_DISTANCE_MULT = 1.5f;
     public int MAX_SPEED = 100; 
     public int WIDE_SCAN_ANGLE = 180;
     public int WAIT_SERVO_POSITION = 5;
@@ -28,11 +29,14 @@ public class ArduinoController : MonoBehaviour
     private int angle;
     private int currentScanDirection = 1; // Left = -1, Right = 1
 
-    private bool currentScanObstacleDetected = false;
-    private bool obstacleDetected = false;
+    //private bool currentScanObstacleDetected = false;
+    private bool obstacleDetected = true;
 
     private int currentScanMaxDistance = -1;
     private int currentScanMaxDistanceAngle = -1;
+    private int currentScanMinDistance = int.MaxValue;
+    private float minDistance = -1;
+
     private int maxDistanceAngle = -1;
     private bool waitNextScan = false;
 
@@ -45,9 +49,8 @@ public class ArduinoController : MonoBehaviour
         crawlerDriveController.SetMotors(leftMotor, rightMotor);
         debugDisplay = FindFirstObjectByType<DebugDisplay>();
         i2c = FindFirstObjectByType<I2CBus>();
-        i2c.RegisterDevice(1, ReceiveServoAngle);
-
-        SendScanAngle(FORWARD_SCAN_ANGLE);
+        i2c.RegisterDevice(1, null, null);
+        SendScanMaxAngle(FORWARD_SCAN_ANGLE);
     }
 
     void Update()
@@ -64,7 +67,7 @@ public class ArduinoController : MonoBehaviour
                 waitEndTime = -1;
             }    
         }
-
+        RequestServoAngle();
         UpdateDistanceUltrasonic();
         UpdateDistanceLidar();
         ObstacleDetection();
@@ -72,16 +75,17 @@ public class ArduinoController : MonoBehaviour
 
         debugDisplay.UpdateDisplay(
             $"Speed: {MAX_SPEED} \n" +
-            $"Lidar: {distanceLidar} \n" +
-            $"Ultrasonic: {distanceUltrasonic} \n" +
+            $"Distance: {distanceLidar} \n" +
+            $"UltrasonicDistance: {distanceUltrasonic} \n" +
             $"Angle: {angle} \n" +
-            $"ScanObstacleDetected: {currentScanObstacleDetected} \n" +
             $"ObstacleDetected: {obstacleDetected} \n" +
+            $"CurrentScanMinDistance: {currentScanMinDistance} \n" +
             $"CurrentScanMaxDistance: {currentScanMaxDistance} \n" +
             $"CurrentScanMaxDistanceAngle: {currentScanMaxDistanceAngle} \n" +
             $"MaxDistanceAngle: {maxDistanceAngle} \n" +
             $"WaitNextScan: {waitNextScan} \n" +
-            $"waitEndTime: {waitEndTime} \n"
+            $"waitEndTime: {waitEndTime} \n" +
+            $"state: {state} \n"
             );
     }
     
@@ -111,12 +115,12 @@ public class ArduinoController : MonoBehaviour
         rightMotor.SetMotorSpeed((int)rightSpeed);
     }
 
-    private void ReceiveServoAngle(int angle)
+    private void RequestServoAngle()
     {
-        this.angle = angle;
+        this.angle = i2c.RequestData(2);
         Debug.Log($"Arduino received servo angle: {angle}");
     }
-    private void SendScanAngle(int angle)
+    private void SendScanMaxAngle(int angle)
     {
         i2c.TransmitData(2, angle);
     }
@@ -127,14 +131,14 @@ public class ArduinoController : MonoBehaviour
         {
             if (!waitNextScan)
             {
-                obstacleDetected = currentScanObstacleDetected;
                 maxDistanceAngle = currentScanMaxDistanceAngle;
+                obstacleDetected = currentScanMinDistance < minDistance ? true : false;
             }
-            currentScanObstacleDetected = false;
-
+            
             currentScanDirection = -1;
             currentScanMaxDistanceAngle = -1;
             currentScanMaxDistance = -1;
+            currentScanMinDistance = int.MaxValue;
             waitNextScan = false;
 
         }
@@ -143,25 +147,18 @@ public class ArduinoController : MonoBehaviour
             if (!waitNextScan)
             {
                 maxDistanceAngle = currentScanMaxDistanceAngle;
-                obstacleDetected = currentScanObstacleDetected;
+                obstacleDetected = currentScanMinDistance < minDistance ? true : false;
             }
 
-            currentScanObstacleDetected = false;
             currentScanDirection = 1;
             currentScanMaxDistanceAngle = -1;
             currentScanMaxDistance = -1;
+            currentScanMinDistance = int.MaxValue;
             waitNextScan = false;
         }
 
-        if (distanceLidar < MIN_DISTANCE)
-        {
-            if (!currentScanObstacleDetected)
-            {
-                currentScanObstacleDetected = true;
-            }
-        }
-
         currentScanMaxDistanceAngle = distanceLidar > currentScanMaxDistance ? Math.Abs(angle) : currentScanMaxDistanceAngle;
+        currentScanMinDistance = Math.Min(currentScanMinDistance, distanceLidar);
         currentScanMaxDistance = Math.Max(currentScanMaxDistance, distanceLidar);
     }
 
@@ -172,10 +169,12 @@ public class ArduinoController : MonoBehaviour
             if (!obstacleDetected)
             {
                 state = 1;
+                minDistance = MIN_DISTANCE;
             }
             else
             {
-                SendScanAngle(WIDE_SCAN_ANGLE);
+                minDistance = MIN_DISTANCE * MIN_DISTANCE_MULT;
+                SendScanMaxAngle(WIDE_SCAN_ANGLE);
                 waitNextScan = true;
                 maxDistanceAngle = -1;
                 state = 5; // Wait for the farthest direction
@@ -233,10 +232,10 @@ public class ArduinoController : MonoBehaviour
             if (maxDistanceAngle != -1)
             {
                 state = (maxDistanceAngle < 90) ? 3 : 4;
-                SendScanAngle(FORWARD_SCAN_ANGLE);
+                SendScanMaxAngle(FORWARD_SCAN_ANGLE);
                 waitNextScan = true;
+                obstacleDetected = true;
                 Wait(WAIT_SERVO_POSITION);
-                //obstacleDetected = true;
             }
         }
     }
