@@ -63,16 +63,18 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\ArduinoControllerExtension.cs" />
     <Compile Include="Assets\Scripts\MeUltrasonicSensor.cs" />
+    <Compile Include="Assets\Scripts\DriveController.cs" />
     <Compile Include="Assets\Scripts\ServoMotor.cs" />
     <Compile Include="Assets\Scripts\ArduinoController.cs" />
     <Compile Include="Assets\Scripts\DebugDisplay.cs" />
-    <Compile Include="Assets\Scripts\CrawlerDriveController.cs" />
     <Compile Include="Assets\Scripts\MeEncoderOnBoard.cs" />
     <Compile Include="Assets\Scripts\I2CBus.cs" />
-    <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\Scripts\RangerTelemetry.cs" />
     <Compile Include="Assets\Scripts\TFminiS.cs" />
+    <Compile Include="Assets\Scripts\BleApi.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Scripts\BleWinrtDll.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />

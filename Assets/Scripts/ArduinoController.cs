@@ -13,7 +13,7 @@ public class ArduinoController : MonoBehaviour
     public TFminiS lidarSensor;
     public DebugDisplay debugDisplay;
 
-    private CrawlerDriveController crawlerDriveController;
+    private DriveController crawlerDriveController;
 
     public int FORWARD_SCAN_ANGLE = 45;
     public int MIN_DISTANCE = 1000;
@@ -45,9 +45,9 @@ public class ArduinoController : MonoBehaviour
 
     void Start()
     {
-        crawlerDriveController = FindFirstObjectByType<CrawlerDriveController>();
+        crawlerDriveController = FindFirstObjectByType<DriveController>();
         crawlerDriveController.SetMotors(leftMotor, rightMotor);
-        debugDisplay = FindFirstObjectByType<DebugDisplay>();
+        //debugDisplay = FindFirstObjectByType<DebugDisplay>();
         i2c = FindFirstObjectByType<I2CBus>();
         i2c.RegisterDevice(1, null, null);
         SendScanMaxAngle(FORWARD_SCAN_ANGLE);

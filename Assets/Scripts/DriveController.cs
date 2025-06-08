@@ -4,7 +4,7 @@ using UnityEngine;
  * This class controls the movement of the crawler robot using two motors. 
  * It simulates the movement of a tracked vehicle.
  * */
-public class CrawlerDriveController : MonoBehaviour
+public class DriveController : MonoBehaviour
 {
     public Rigidbody crawlerBody; // Assign the rigidbody of the chassis
     public GameObject replacementPrefab;
@@ -48,7 +48,7 @@ public class CrawlerDriveController : MonoBehaviour
                     arduinoController.debugDisplay = FindFirstObjectByType<ArduinoController>().debugDisplay;
                 }
 
-                CrawlerDriveController crawlerDriveController = newInstance.GetComponent<CrawlerDriveController>();
+                DriveController crawlerDriveController = newInstance.GetComponent<DriveController>();
                 if (crawlerDriveController != null)
                 {
                     crawlerDriveController.replacementPrefab = replacementPrefab;
