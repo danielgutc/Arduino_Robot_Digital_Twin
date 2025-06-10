@@ -58,7 +58,7 @@ public class RangerTelemetry : MonoBehaviour
             while (BleApi.PollData(out telemetry, false))
             {
                 string message = Encoding.ASCII.GetString(telemetry.buf, 0, telemetry.size).TrimEnd('\0');
-                
+                message = message.Replace(", ", "\n");
                 debugDisplay.UpdateDisplay(message);
             }
         }

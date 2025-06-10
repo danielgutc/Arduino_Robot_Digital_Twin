@@ -74,18 +74,18 @@ public class ArduinoController : MonoBehaviour
         Move();
 
         debugDisplay.UpdateDisplay(
-            $"Speed: {MAX_SPEED} \n" +
-            $"Distance: {distanceLidar} \n" +
-            $"UltrasonicDistance: {distanceUltrasonic} \n" +
+            $"State: {state} \n" +
+            $"Lidar: {distanceLidar} \n" +
+            $"Ultrasonic: {distanceUltrasonic} \n" +
             $"Angle: {angle} \n" +
             $"ObstacleDetected: {obstacleDetected} \n" +
-            $"CurrentScanMinDistance: {currentScanMinDistance} \n" +
+            //$"CurrentScanMinDistance: {currentScanMinDistance} \n" +
             $"CurrentScanMaxDistance: {currentScanMaxDistance} \n" +
             $"CurrentScanMaxDistanceAngle: {currentScanMaxDistanceAngle} \n" +
             $"MaxDistanceAngle: {maxDistanceAngle} \n" +
             $"WaitNextScan: {waitNextScan} \n" +
-            $"waitEndTime: {waitEndTime} \n" +
-            $"state: {state} \n"
+            //$"WaitEndTime: {waitEndTime} \n" +
+            $"Speed: {MAX_SPEED} \n"
             );
     }
     

@@ -1,12 +1,12 @@
 using UnityEngine;
 
 /*
- * This class controls the movement of the crawler robot using two motors. 
+ * This class controls the movement of the ranger robot using two motors. 
  * It simulates the movement of a tracked vehicle.
  * */
 public class DriveController : MonoBehaviour
 {
-    public Rigidbody crawlerBody; // Assign the rigidbody of the chassis
+    public Rigidbody rangerBody; // Assign the rigidbody of the chassis
     public GameObject replacementPrefab;
     public float speedMultiplier = 0.1f;
     public float rotationMultiplier = 1f;
@@ -28,8 +28,8 @@ public class DriveController : MonoBehaviour
         float rotation = (rightSpeed - leftSpeed) * rotationMultiplier;
 
         Vector3 movement = transform.forward * forwardSpeed * Time.fixedDeltaTime;
-        crawlerBody.MovePosition(crawlerBody.position + movement);
-        crawlerBody.MoveRotation(crawlerBody.rotation * Quaternion.Euler(0, rotation * Time.fixedDeltaTime, 0));
+        rangerBody.MovePosition(rangerBody.position + movement);
+        rangerBody.MoveRotation(rangerBody.rotation * Quaternion.Euler(0, rotation * Time.fixedDeltaTime, 0));
     }
 
     void OnCollisionEnter(Collision collision)
@@ -48,10 +48,10 @@ public class DriveController : MonoBehaviour
                     arduinoController.debugDisplay = FindFirstObjectByType<ArduinoController>().debugDisplay;
                 }
 
-                DriveController crawlerDriveController = newInstance.GetComponent<DriveController>();
-                if (crawlerDriveController != null)
+                DriveController rangerDriveController = newInstance.GetComponent<DriveController>();
+                if (rangerDriveController != null)
                 {
-                    crawlerDriveController.replacementPrefab = replacementPrefab;
+                    rangerDriveController.replacementPrefab = replacementPrefab;
                 }
             }
             Destroy(gameObject);
