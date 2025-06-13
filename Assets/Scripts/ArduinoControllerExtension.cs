@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ArduinoControllerExtension : MonoBehaviour
 {
-    public ServoMotor servoMotor;
+    public Servo servo;
     public float SERVO_SPEED = 2f; // Degrees per frame
     public float SERVO_SPEED_MULT = 0.2f;
     
@@ -51,7 +51,6 @@ public class ArduinoControllerExtension : MonoBehaviour
 
     void Update()
     {
-        // Simulate the servo oscillating between 0 and 180 degrees
         angle += speed * direction;
         if (angle >= maxAngle)
         {
@@ -64,7 +63,6 @@ public class ArduinoControllerExtension : MonoBehaviour
             direction = 1;
         }
 
-        // Apply rotation to the servo arm (converting to a realistic servo rotation range)
-        servoMotor.Write((int)angle);
+        servo.Write((int)angle);
     }
 }

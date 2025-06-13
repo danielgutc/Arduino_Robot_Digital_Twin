@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
-using System.Threading;
-using Unity.VisualScripting;
+using TFminiS;
 using UnityEngine;
 
 public class ArduinoController : MonoBehaviour
@@ -10,7 +8,7 @@ public class ArduinoController : MonoBehaviour
     public MeEncoderOnBoard leftMotor;
     public MeEncoderOnBoard rightMotor;
     public MeUltrasonicSensor ultrasonicSensor;
-    public TFminiS lidarSensor;
+    public ITFminiS lidarSensor;
     public DebugDisplay debugDisplay;
 
     private DriveController crawlerDriveController;

@@ -9,8 +9,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{44393E2F-517C-8CC9-79F2-8C1215DEF0D6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -63,15 +62,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\ArduinoControllerExtension.cs" />
+    <Compile Include="Assets\Scripts\TFminiS\PhysicalTFminiS.cs" />
     <Compile Include="Assets\Scripts\MeUltrasonicSensor.cs" />
     <Compile Include="Assets\Scripts\DriveController.cs" />
-    <Compile Include="Assets\Scripts\ServoMotor.cs" />
+    <Compile Include="Assets\Scripts\TFminiS\TFminiSProxy.cs" />
     <Compile Include="Assets\Scripts\ArduinoController.cs" />
     <Compile Include="Assets\Scripts\DebugDisplay.cs" />
     <Compile Include="Assets\Scripts\MeEncoderOnBoard.cs" />
     <Compile Include="Assets\Scripts\I2CBus.cs" />
-    <Compile Include="Assets\Scripts\RangerTelemetry.cs" />
-    <Compile Include="Assets\Scripts\TFminiS.cs" />
+    <Compile Include="Assets\Scripts\RangerBle.cs" />
+    <Compile Include="Assets\Scripts\Servo.cs" />
+    <Compile Include="Assets\Scripts\TFminiS\SimulatedTFminiS.cs" />
+    <Compile Include="Assets\Scripts\Telemetry.cs" />
+    <Compile Include="Assets\Scripts\TFminiS\ITFminiS.cs" />
     <Compile Include="Assets\Scripts\BleApi.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1267,7 +1270,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets\Scripts\Simulated\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
