@@ -38,7 +38,7 @@ namespace TFminiS
 
         public void ReadSensor()
         {
-            distance = Convert.ToInt32(rangerBle.Telemetry.lidar);
+            distance = Convert.ToInt32(rangerBle.Telemetry.Lidar);
         }
 
 

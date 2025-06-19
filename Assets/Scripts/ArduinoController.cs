@@ -8,7 +8,7 @@ public class ArduinoController : MonoBehaviour
     public MeEncoderOnBoard leftMotor;
     public MeEncoderOnBoard rightMotor;
     public MeUltrasonicSensor ultrasonicSensor;
-    public SimulatedTFminiS lidarSensor;
+    public ITFminiS lidarSensor;
     public DebugDisplay debugDisplay;
 
     private DriveController crawlerDriveController;

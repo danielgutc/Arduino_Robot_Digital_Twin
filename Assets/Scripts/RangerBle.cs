@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using UnityEngine;
 
@@ -62,10 +63,17 @@ public class RangerBle: MonoBehaviour
             while (BleApi.PollData(out telemetryBleData, false))
             {
                 string message = Encoding.ASCII.GetString(telemetryBleData.buf, 0, telemetryBleData.size).TrimEnd('\0');
-                telemetry = JsonUtility.FromJson<Telemetry>(message);
+                
+                try
+                {
+                    telemetry = JsonUtility.FromJson<Telemetry>(message);
+                }
+                catch
+                {
+                    telemetry = Parse(message);
+                }
 
-                message = message.Replace(", ", "\n");
-                debugDisplay.UpdateDisplay(message);
+                debugDisplay.UpdateDisplay(telemetry.ToString());
             }
         }
     }
@@ -95,5 +103,28 @@ public class RangerBle: MonoBehaviour
         }
         // no error code available in non-blocking mode
         BleApi.SendData(in data, false);
+    }
+
+    private Telemetry Parse(string input)
+    {
+        var telemetry = new Telemetry();
+        var props = typeof(Telemetry).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+        foreach (var pair in input.Split(','))
+        {
+            var kv = pair.Split(':');
+            if (kv.Length != 2) continue;
+
+            var key = kv[0].Trim();
+            var value = kv[1].Trim();
+
+            var prop = Array.Find(props, p => string.Equals(p.Name, key, StringComparison.OrdinalIgnoreCase));
+            if (prop != null && prop.CanWrite)
+            {
+                prop.SetValue(telemetry, value);
+            }
+        }
+
+        return telemetry;
     }
 }
