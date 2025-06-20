@@ -1,20 +1,32 @@
+using System;
 using System.Linq;
 using UnityEngine;
 
 public class RangerSpawner : MonoBehaviour
 {
-    public string rangerPrefabPath = "Prefabs/RangerModulablePrefab"; // Path to the Ranger prefab
-    public string lidarPrefabPath = "Prefabs/LidarSimulatedPrefab"; // Path to the Lidar prefab
-    public Vector3 rangerPosition = new(-2176, 242, 13329); // Initial position of the Ranger
+    private string prefabsPath = "prefabs/";
+    public enum RangerType
+    {
+        RangerModularPrefab,
+        RangerPrefab
+    }
+    public enum LidarType
+    {
+        LidarPhysicalPrefab,
+        LidarSimulatedPrefab
+    }
+    public RangerType rangerType= RangerType.RangerModularPrefab;
+    public LidarType lidarType = LidarType.LidarSimulatedPrefab;
+    public Vector3 rangerPosition = new(-2176, 242, 13329);
+    public TerminalDisplay terminal;
 
     void Start()
     {
-        DebugDisplay terminal = FindObjectsByType<DebugDisplay>(FindObjectsInactive.Include, FindObjectsSortMode.None).FirstOrDefault(x => x.name == "Terminal");
         RangerBuilder rangerBuilder = new();
         GameObject ranger = rangerBuilder
-            .NewRanger(rangerPrefabPath)
-            .SetLidar(lidarPrefabPath)
-            .SetDebugDisplay(terminal)
+            .NewRanger(prefabsPath + rangerType.ToString())
+            .SetLidar(prefabsPath + lidarType.ToString())
+            .SetTerminal(terminal)
             .Build();
 
         ranger.transform.position = rangerPosition;

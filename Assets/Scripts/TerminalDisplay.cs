@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public class DebugDisplay : MonoBehaviour
+public class TerminalDisplay : MonoBehaviour
 {
     public TextMeshProUGUI displayText;
 

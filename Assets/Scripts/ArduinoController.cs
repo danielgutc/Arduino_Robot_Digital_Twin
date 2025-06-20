@@ -9,7 +9,7 @@ public class ArduinoController : MonoBehaviour
     public MeEncoderOnBoard rightMotor;
     public MeUltrasonicSensor ultrasonicSensor;
     public ITFminiS lidarSensor;
-    public DebugDisplay debugDisplay;
+    public TerminalDisplay terminalDisplay;
 
     private DriveController crawlerDriveController;
 
@@ -34,18 +34,14 @@ public class ArduinoController : MonoBehaviour
     private int currentScanMaxDistanceAngle = -1;
     private int currentScanMinDistance = int.MaxValue;
     private float minDistance = -1;
-
     private int maxDistanceAngle = -1;
     private bool waitNextScan = false;
-
     private float waitEndTime = -1;
-
 
     void Start()
     {
         crawlerDriveController = FindFirstObjectByType<DriveController>();
         crawlerDriveController.SetMotors(leftMotor, rightMotor);
-        //debugDisplay = FindFirstObjectByType<DebugDisplay>();
         i2c = FindFirstObjectByType<I2CBus>();
         i2c.RegisterDevice(1, null, null);
         SendScanMaxAngle(FORWARD_SCAN_ANGLE);
@@ -53,7 +49,7 @@ public class ArduinoController : MonoBehaviour
 
     void Update()
     {
-        // Simulate Wait time in Arduino. This is not required to be ported to Arduino
+        // Simulate Wait time in Arduino
         if (waitEndTime != -1)
         {
             if (Time.time < waitEndTime)
@@ -65,24 +61,23 @@ public class ArduinoController : MonoBehaviour
                 waitEndTime = -1;
             }    
         }
+
         RequestServoAngle();
         UpdateDistanceUltrasonic();
         UpdateDistanceLidar();
         ObstacleDetection();
         Move();
 
-        debugDisplay.UpdateDisplay(
+        terminalDisplay.UpdateDisplay(
             $"State: {state} \n" +
             $"Lidar: {distanceLidar} \n" +
             $"Ultrasonic: {distanceUltrasonic} \n" +
             $"Angle: {angle} \n" +
             $"ObstacleDetected: {obstacleDetected} \n" +
-            //$"CurrentScanMinDistance: {currentScanMinDistance} \n" +
             $"CurrentScanMaxDistance: {currentScanMaxDistance} \n" +
             $"CurrentScanMaxDistanceAngle: {currentScanMaxDistanceAngle} \n" +
             $"MaxDistanceAngle: {maxDistanceAngle} \n" +
             $"WaitNextScan: {waitNextScan} \n" +
-            //$"WaitEndTime: {waitEndTime} \n" +
             $"Speed: {MAX_SPEED} \n"
             );
     }

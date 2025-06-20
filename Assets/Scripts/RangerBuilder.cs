@@ -28,13 +28,21 @@ public class RangerBuilder
         return this;
     }
 
-    public RangerBuilder SetDebugDisplay(DebugDisplay debugDisplay)
+    public RangerBuilder SetTerminal(TerminalDisplay terminal)
     {
         ArduinoController controller = ranger.GetComponent<ArduinoController>();
-        controller.debugDisplay = debugDisplay;
+        controller.terminalDisplay = terminal;
         
         return this;
     }
+
+/*    public RangerBuilder SetTerminalBle(TerminalDisplay terminalBle)
+    {
+        RangerBle ble = ranger.GetComponent<RangerBle>();
+        ble.terminalDisplay = terminalBle;
+
+        return this;
+    }*/
 
     public GameObject Build()
     {

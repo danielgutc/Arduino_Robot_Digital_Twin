@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 [System.Serializable]
 public class Telemetry
 {
-    public string State { get; set; } 
-    public string Lidar { get; set; }
-    public string Ultrasonic { get; set; }
-    public string Angle { get; set; }
-    public string ObstacleDetected { get; set; }
-    public string CurrentScanMaxDistance { get; set; }
-    public string CurrentScanMaxDistanceAngle { get; set; }
-    public string MaxDistanceAngle { get; set; }
-    public string WaitNextScan { get; set; }
-    public string LeftMotorSpeed { get; set; }
-    public string RightMotorSpeed { get; set; }
+    public int State { get; set; } 
+    public int Lidar { get; set; }
+    public int Ultrasonic { get; set; }
+    public int Angle { get; set; }
+    public bool ObstacleDetected { get; set; }
+    public int CurrentScanMaxDistance { get; set; }
+    public int CurrentScanMaxDistanceAngle { get; set; }
+    public int MaxDistanceAngle { get; set; }
+    public int WaitNextScan { get; set; }
+    public int LeftMotorSpeed { get; set; }
+    public int RightMotorSpeed { get; set; }
 
     public override string ToString()
     {

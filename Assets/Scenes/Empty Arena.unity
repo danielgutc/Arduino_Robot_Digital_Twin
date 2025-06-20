@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 76704442}
   - component: {fileID: 76704443}
   m_Layer: 0
-  m_Name: TwinManager
+  m_Name: Ranger Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -275,7 +275,7 @@ MonoBehaviour:
   rangerNameKeyword: Makeblock_LE703e97f555d4
   telemetryServiceUuid: 0000ffe1-0000-1000-8000-00805f9b34fb
   telemetryCharUuid: 0000ffe2-0000-1000-8000-00805f9b34fb
-  debugDisplay: {fileID: 889943090}
+  terminalDisplay: {fileID: 889943090}
 --- !u!114 &76704443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,9 +288,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b99e6b58f423d0b4cbd736455d21bce4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rangerPrefabPath: Prefabs/RangerModularPrefab
-  lidarPrefabPath: Prefabs/LidarSimulatedPrefab
+  rangerType: 0
+  lidarType: 0
   rangerPosition: {x: 10000, y: 10200, z: 10000}
+  terminal: {fileID: 535944821}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1161,7 +1162,7 @@ GameObject:
   - component: {fileID: 1625074882}
   - component: {fileID: 1625074881}
   m_Layer: 5
-  m_Name: RobotCameraView
+  m_Name: Robot Camera View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

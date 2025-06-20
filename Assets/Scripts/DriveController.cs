@@ -45,7 +45,7 @@ public class DriveController : MonoBehaviour
                 ArduinoController arduinoController = newInstance.GetComponent<ArduinoController>();
                 if (arduinoController != null)
                 {
-                    arduinoController.debugDisplay = FindFirstObjectByType<ArduinoController>().debugDisplay;
+                    arduinoController.terminalDisplay = FindFirstObjectByType<ArduinoController>().terminalDisplay;
                 }
 
                 DriveController rangerDriveController = newInstance.GetComponent<DriveController>();

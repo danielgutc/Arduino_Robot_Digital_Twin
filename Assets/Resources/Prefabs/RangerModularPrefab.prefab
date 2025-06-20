@@ -557,9 +557,9 @@ MonoBehaviour:
   leftMotor: {fileID: 903204115744276046}
   rightMotor: {fileID: 9156286303423231944}
   ultrasonicSensor: {fileID: 5652428053857194602}
-  debugDisplay: {fileID: 0}
+  terminalDisplay: {fileID: 0}
   FORWARD_SCAN_ANGLE: 45
-  MIN_DISTANCE: 1000
+  MIN_DISTANCE: 100
   MIN_DISTANCE_MULT: 1.5
   MAX_SPEED: 200
   WIDE_SCAN_ANGLE: 180

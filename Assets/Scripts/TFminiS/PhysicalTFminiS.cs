@@ -12,6 +12,11 @@ namespace TFminiS
 
         void Start()
         {
+            if (rangerBle == null)
+            {
+                rangerBle = FindFirstObjectByType<RangerBle>();
+            }
+            
             strength = 0; // Not possible to read strength from the physical sensor
             temperature = 0; // Not possible to read temperature from the physical sensor
         }
@@ -38,7 +43,7 @@ namespace TFminiS
 
         public void ReadSensor()
         {
-            distance = Convert.ToInt32(rangerBle.Telemetry.Lidar);
+            distance = rangerBle.Telemetry.Lidar;
         }
 
 

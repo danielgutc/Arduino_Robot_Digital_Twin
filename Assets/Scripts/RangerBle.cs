@@ -9,7 +9,7 @@ public class RangerBle: MonoBehaviour
     public string rangerNameKeyword = "Makeblock_LE703e97f555d4";
     public string telemetryServiceUuid = "00006287-3c17-d293-8e48-14fe2e4da212";
     public string telemetryCharUuid = "0000ffe2-0000-1000-8000-00805f9b34fb";
-    public DebugDisplay debugDisplay;
+    public TerminalDisplay terminalDisplay;
     
     private string connectedDeviceId;
     private bool isScanningDevices = false;
@@ -22,6 +22,7 @@ public class RangerBle: MonoBehaviour
     {
         isScanningDevices = true;
         isSubscribed = false;
+        telemetry = new Telemetry();
     }
 
     void Update()
@@ -39,7 +40,7 @@ public class RangerBle: MonoBehaviour
                     if (!string.IsNullOrEmpty(device.name) &&
                         device.name.ToLower().Contains(rangerNameKeyword.ToLower()))
                     {
-                        debugDisplay.UpdateDisplay($"Found Ranger device: {device.name} ({device.id})");
+                        terminalDisplay.UpdateDisplay($"Found Ranger device: {device.name} ({device.id})");
                         connectedDeviceId = device.id;
                         isScanningDevices = false;
                         Subscribe();
@@ -50,7 +51,7 @@ public class RangerBle: MonoBehaviour
                 }
                 else if (status == BleApi.ScanStatus.FINISHED)
                 {
-                    debugDisplay.UpdateDisplay("Scan finished with no match.");
+                    terminalDisplay.UpdateDisplay("Scan finished with no match.");
                 }
             }
 
@@ -73,7 +74,7 @@ public class RangerBle: MonoBehaviour
                     telemetry = Parse(message);
                 }
 
-                debugDisplay.UpdateDisplay(telemetry.ToString());
+                terminalDisplay.UpdateDisplay(telemetry.ToString());
             }
         }
     }
@@ -121,10 +122,42 @@ public class RangerBle: MonoBehaviour
             var prop = Array.Find(props, p => string.Equals(p.Name, key, StringComparison.OrdinalIgnoreCase));
             if (prop != null && prop.CanWrite)
             {
-                prop.SetValue(telemetry, value);
+                if (prop.PropertyType == typeof(bool))
+                {
+                    prop.SetValue(telemetry, ParseFlexibleBool(value));
+                }
+                else if (prop.PropertyType == typeof(int))
+                {
+                    prop.SetValue(telemetry, int.Parse(value));
+                }
+                else
+                {
+                    prop.SetValue(telemetry, value);
+                }
+
             }
         }
 
         return telemetry;
     }
+
+    private bool ParseFlexibleBool(string input)
+    {
+        switch (input.ToLowerInvariant())
+        {
+            case "true":
+            case "1":
+            case "yes":
+            case "on":
+                return true;
+            case "false":
+            case "0":
+            case "no":
+            case "off":
+                return false;
+            default:
+                throw new FormatException($"'{input}' is not a valid boolean value.");
+        }
+    }
+
 }
