@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 76704441}
   - component: {fileID: 76704442}
   m_Layer: 0
-  m_Name: TwinManager
+  m_Name: Ranger BLE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -274,7 +274,7 @@ MonoBehaviour:
   rangerNameKeyword: Makeblock_LE703e97f555d4
   telemetryServiceUuid: 0000ffe1-0000-1000-8000-00805f9b34fb
   telemetryCharUuid: 0000ffe2-0000-1000-8000-00805f9b34fb
-  debugDisplay: {fileID: 889943090}
+  terminalDisplay: {fileID: 889943090}
 --- !u!54 &206883747 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 6328080489703171337, guid: 36c292f65d1a9674f9f7f16b69bfd0aa, type: 3}
@@ -2252,6 +2252,10 @@ PrefabInstance:
       propertyPath: TURN_SPEED_MULT
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6836681994710516493, guid: 36c292f65d1a9674f9f7f16b69bfd0aa, type: 3}
+      propertyPath: terminalDisplay
+      value: 
+      objectReference: {fileID: 535944821}
     - target: {fileID: 6836681994710516493, guid: 36c292f65d1a9674f9f7f16b69bfd0aa, type: 3}
       propertyPath: FORWARD_SCAN_ANGLE
       value: 90

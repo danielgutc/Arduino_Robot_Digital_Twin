@@ -289,7 +289,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rangerType: 0
-  lidarType: 0
+  lidarType: 1
+  servoType: 1
   rangerPosition: {x: 10000, y: 10200, z: 10000}
   terminal: {fileID: 535944821}
 --- !u!1 &330585543

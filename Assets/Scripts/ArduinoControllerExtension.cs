@@ -1,8 +1,9 @@
+using Servo;
 using UnityEngine;
 
 public class ArduinoControllerExtension : MonoBehaviour
 {
-    public Servo servo;
+    public IServo servo;
     public float SERVO_SPEED = 2f; // Degrees per frame
     public float SERVO_SPEED_MULT = 0.2f;
     

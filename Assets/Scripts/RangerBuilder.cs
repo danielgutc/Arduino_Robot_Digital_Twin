@@ -1,3 +1,4 @@
+using Servo;
 using TFminiS;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,7 +18,7 @@ public class RangerBuilder
 
     public RangerBuilder SetLidar(string lidarPrefabPath)
     {
-        Transform servo = ranger.transform.Find("ServoMotor");
+        Transform servo = ranger.transform.Find("Servo");
         GameObject lidarPrefab = Resources.Load<GameObject>(lidarPrefabPath);
         GameObject lidar = GameObject.Instantiate(lidarPrefab, servo);
         lidar.name = "Lidar";
@@ -36,13 +37,17 @@ public class RangerBuilder
         return this;
     }
 
-/*    public RangerBuilder SetTerminalBle(TerminalDisplay terminalBle)
+    public RangerBuilder SetServo(string servoPrefabPath)
     {
-        RangerBle ble = ranger.GetComponent<RangerBle>();
-        ble.terminalDisplay = terminalBle;
+        GameObject servoPrefab = Resources.Load<GameObject>(servoPrefabPath);
+        GameObject servo = GameObject.Instantiate(servoPrefab, ranger.transform);
+        servo.name = "Servo";
+
+        ArduinoControllerExtension controllerExtension = ranger.GetComponent<ArduinoControllerExtension>();
+        controllerExtension.servo = servo.GetComponent<IServo>();
 
         return this;
-    }*/
+    }
 
     public GameObject Build()
     {
