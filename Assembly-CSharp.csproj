@@ -65,9 +65,9 @@
     <Compile Include="Assets\Scripts\MeUltrasonicSensor\MeUltrasonicSensor.cs" />
     <Compile Include="Assets\Scripts\TFminiS\PhysicalTFminiS.cs" />
     <Compile Include="Assets\Scripts\DriveController.cs" />
+    <Compile Include="Assets\Scripts\MeEncoderOnBoard\IMeEncoderOnBoard.cs" />
     <Compile Include="Assets\Scripts\Servo\IServo.cs" />
     <Compile Include="Assets\Scripts\ArduinoController.cs" />
-    <Compile Include="Assets\Scripts\MeEncoderOnBoard.cs" />
     <Compile Include="Assets\Scripts\I2CBus.cs" />
     <Compile Include="Assets\Scripts\RangerBle.cs" />
     <Compile Include="Assets\Scripts\RangerBuilder.cs" />
@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\TFminiS\SimulatedTFminiS.cs" />
     <Compile Include="Assets\Scripts\RangerSpawner.cs" />
     <Compile Include="Assets\Scripts\Servo\SimulatedServo.cs" />
+    <Compile Include="Assets\Scripts\MeEncoderOnBoard\SimulatedMeEncoderOnBoard.cs" />
     <Compile Include="Assets\Scripts\Telemetry.cs" />
     <Compile Include="Assets\Scripts\TFminiS\ITFminiS.cs" />
     <Compile Include="Assets\Scripts\BleApi.cs" />

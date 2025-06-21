@@ -1,12 +1,13 @@
 using System;
 using TFminiS;
+using MeEncoderOnBoard;
 using UnityEngine;
 
 public class ArduinoController : MonoBehaviour
 {
     private I2CBus i2c;
-    public MeEncoderOnBoard leftMotor;
-    public MeEncoderOnBoard rightMotor;
+    public SimulatedMeEncoderOnBoard leftMotor;
+    public SimulatedMeEncoderOnBoard rightMotor;
     public MeUltrasonicSensor ultrasonicSensor;
     public ITFminiS lidarSensor;
     public TerminalDisplay terminalDisplay;
@@ -78,7 +79,8 @@ public class ArduinoController : MonoBehaviour
             $"CurrentScanMaxDistanceAngle: {currentScanMaxDistanceAngle} \n" +
             $"MaxDistanceAngle: {maxDistanceAngle} \n" +
             $"WaitNextScan: {waitNextScan} \n" +
-            $"Speed: {MAX_SPEED} \n"
+            $"LeftMotorSpeed: {leftMotor.GetCurrentSpeed()} \n" +
+            $"RightMotorSpeed: {rightMotor.GetCurrentSpeed()}"
             );
     }
     

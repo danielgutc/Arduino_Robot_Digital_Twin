@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace Servo
 {
+    /*
+     * PhysicalServo connects the physical servo motor but still represents the rotation of the servo in Unity.
+     */
     public class PhysicalServo : MonoBehaviour, IServo
     {
         public RangerBle rangerBle;

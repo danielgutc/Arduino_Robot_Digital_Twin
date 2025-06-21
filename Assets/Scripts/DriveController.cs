@@ -1,3 +1,4 @@
+using MeEncoderOnBoard;
 using UnityEngine;
 
 /*
@@ -11,10 +12,10 @@ public class DriveController : MonoBehaviour
     public float speedMultiplier = 0.1f;
     public float rotationMultiplier = 1f;
 
-    private MeEncoderOnBoard leftMotor;
-    private MeEncoderOnBoard rightMotor;
+    private SimulatedMeEncoderOnBoard leftMotor;
+    private SimulatedMeEncoderOnBoard rightMotor;
 
-    public void SetMotors(MeEncoderOnBoard leftMotor, MeEncoderOnBoard rightMotor)
+    public void SetMotors(SimulatedMeEncoderOnBoard leftMotor, SimulatedMeEncoderOnBoard rightMotor)
     {
         this.leftMotor = leftMotor;
         this.rightMotor = rightMotor;
