@@ -1,4 +1,5 @@
 using Servo;
+using System;
 using TFminiS;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,6 +20,11 @@ public class RangerBuilder
     public RangerBuilder SetLidar(string lidarPrefabPath)
     {
         Transform servo = ranger.transform.Find("Servo");
+        if (servo == null)
+        {
+            throw new Exception("Servo not found. Please build the servo by invoking SetServo() before building the lidar");
+        }
+
         GameObject lidarPrefab = Resources.Load<GameObject>(lidarPrefabPath);
         GameObject lidar = GameObject.Instantiate(lidarPrefab, servo);
         lidar.name = "Lidar";
