@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Servo
 {
@@ -8,9 +9,11 @@ namespace Servo
     public class PhysicalServo : MonoBehaviour, IServo
     {
         public RangerBle rangerBle;
-        
-        private readonly float minAngle = 0f;
-        private readonly float maxAngle = 180f;
+        public float minAngle = 0f;
+        public float maxAngle = 180f;
+        public float rotationSpeed = 0.1f;
+
+        //private float currentAngle;
         private bool isAttached = false;
 
         private void Start()
@@ -30,7 +33,10 @@ namespace Servo
         {
             if (isAttached)
             {
-                this.transform.localRotation = Quaternion.Euler(0, rangerBle.Telemetry.Angle, 0); // Rotates around the Y-axis
+                //float step = rotationSpeed * Time.deltaTime;
+                //currentAngle = Mathf.MoveTowards(currentAngle, rangerBle.Telemetry.Angle, step);
+                //this.transform.localRotation = Quaternion.Euler(0, currentAngle, 0);
+                this.transform.localRotation = Quaternion.Euler(0, rangerBle.Telemetry.Angle, 0);
             }
         }
 

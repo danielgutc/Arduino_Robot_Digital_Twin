@@ -24,7 +24,7 @@ namespace Servo
 
         private void Update()
         {
-            if (isAttached && this.transform != null)
+            if (isAttached)
             {
                 // Rotate smoothly towards the target angle within the rotation speed limit
                 float step = rotationSpeed * Time.deltaTime;

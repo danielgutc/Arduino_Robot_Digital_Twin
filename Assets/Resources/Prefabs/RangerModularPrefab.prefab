@@ -121,7 +121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d673e969cc2644aacf5b5264608735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motorWheel: {fileID: 4416714234241606168}
   speedMultiplier: 0.05
 --- !u!1 &5319708963594307470
 GameObject:
@@ -433,7 +432,7 @@ MonoBehaviour:
   ultrasonicSensor: {fileID: 5652428053857194602}
   terminalDisplay: {fileID: 0}
   FORWARD_SCAN_ANGLE: 45
-  MIN_DISTANCE: 100
+  MIN_DISTANCE: 5000
   MIN_DISTANCE_MULT: 1.5
   MAX_SPEED: 200
   WIDE_SCAN_ANGLE: 180
@@ -452,7 +451,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rangerBody: {fileID: 6328080489703171337}
-  replacementPrefab: {fileID: 7480598954244762402}
+  replacementPrefab: {fileID: 0}
   speedMultiplier: 5
   rotationMultiplier: 2
 --- !u!114 &5181631532660752417
@@ -590,7 +589,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d673e969cc2644aacf5b5264608735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motorWheel: {fileID: 90424246929310278}
   speedMultiplier: 0.05
 --- !u!1 &7930615738379948264
 GameObject:

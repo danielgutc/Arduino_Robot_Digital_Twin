@@ -4,15 +4,18 @@ namespace MeEncoderOnBoard
 {
     public class SimulatedMeEncoderOnBoard : MonoBehaviour, IMeEncoderOnBoard
     {
-        public Transform motorWheel;
         public float speedMultiplier = 0.1f;
         private float currentSpeed = 0;
         private float targetPosition = 0;
 
+        private void Update()
+        {
+            this.transform.Rotate(Vector3.left * currentSpeed);
+        }
+
         public void SetMotorSpeed(int speed)
         {
             currentSpeed = speed * speedMultiplier;
-            motorWheel.Rotate(Vector3.left * currentSpeed);
         }
 
         public void StopMotor()
@@ -32,7 +35,7 @@ namespace MeEncoderOnBoard
 
         public float GetPosition()
         {
-            return motorWheel.localEulerAngles.z;
+            return this.transform.localEulerAngles.z;
         }
     }
 }

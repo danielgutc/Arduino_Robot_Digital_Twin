@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\ArduinoControllerExtension.cs" />
+    <Compile Include="Assets\Scripts\MeEncoderOnBoard\PhysicalMeEncoderOnBoard.cs" />
     <Compile Include="Assets\Scripts\MeUltrasonicSensor\MeUltrasonicSensor.cs" />
     <Compile Include="Assets\Scripts\TFminiS\PhysicalTFminiS.cs" />
     <Compile Include="Assets\Scripts\DriveController.cs" />

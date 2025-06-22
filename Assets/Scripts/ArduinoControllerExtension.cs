@@ -47,7 +47,7 @@ public class ArduinoControllerExtension : MonoBehaviour
 
     private int SendCurrentAngle()
     {
-        return servo.Read();
+        return servo.Read() * direction;
     }
 
     void Update()

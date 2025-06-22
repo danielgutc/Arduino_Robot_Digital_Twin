@@ -28,7 +28,7 @@ public class DriveController : MonoBehaviour
         float forwardSpeed = (leftSpeed + rightSpeed) * speedMultiplier;
         float rotation = (rightSpeed - leftSpeed) * rotationMultiplier;
 
-        Vector3 movement = transform.forward * forwardSpeed * Time.fixedDeltaTime;
+        Vector3 movement = forwardSpeed * Time.fixedDeltaTime * transform.forward;
         rangerBody.MovePosition(rangerBody.position + movement);
         rangerBody.MoveRotation(rangerBody.rotation * Quaternion.Euler(0, rotation * Time.fixedDeltaTime, 0));
     }
