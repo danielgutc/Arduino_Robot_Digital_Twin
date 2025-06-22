@@ -9,7 +9,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{44393E2F-517C-8CC9-79F2-8C1215DEF0D6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -61,17 +62,20 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.40f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\ArduinoControllerExtension.cs" />
     <Compile Include="Assets\Scripts\MeUltrasonicSensor.cs" />
+    <Compile Include="Assets\Scripts\DriveController.cs" />
     <Compile Include="Assets\Scripts\ServoMotor.cs" />
     <Compile Include="Assets\Scripts\ArduinoController.cs" />
     <Compile Include="Assets\Scripts\DebugDisplay.cs" />
-    <Compile Include="Assets\Scripts\CrawlerDriveController.cs" />
     <Compile Include="Assets\Scripts\MeEncoderOnBoard.cs" />
-    <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
-    <Compile Include="Assets\Scripts\I2CCommunication.cs" />
+    <Compile Include="Assets\Scripts\I2CBus.cs" />
+    <Compile Include="Assets\Scripts\RangerTelemetry.cs" />
     <Compile Include="Assets\Scripts\TFminiS.cs" />
+    <Compile Include="Assets\Scripts\BleApi.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Scripts\BleWinrtDll.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
@@ -1263,6 +1267,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Assets\Scripts\Simulated\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

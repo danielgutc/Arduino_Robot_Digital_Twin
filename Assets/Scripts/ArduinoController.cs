@@ -1,81 +1,94 @@
 using System;
+using System.Collections;
+using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ArduinoController : MonoBehaviour
 {
-    private I2CCommunication i2c;
+    private I2CBus i2c;
     public MeEncoderOnBoard leftMotor;
     public MeEncoderOnBoard rightMotor;
     public MeUltrasonicSensor ultrasonicSensor;
     public TFminiS lidarSensor;
     public DebugDisplay debugDisplay;
 
-    private CrawlerDriveController crawlerDriveController;
+    private DriveController crawlerDriveController;
 
-    public int openAngle = 90;
+    public int FORWARD_SCAN_ANGLE = 45;
     public int MIN_DISTANCE = 1000;
-    public int WEIGHT_DISTANCE = 1;
-    public int MAX_SPEED = 75;
-    //private const float M_PI = 3.14159265358979323846f;
+    public float MIN_DISTANCE_MULT = 1.5f;
+    public int MAX_SPEED = 100; 
+    public int WIDE_SCAN_ANGLE = 180;
+    public int WAIT_SERVO_POSITION = 5;
+    public float TURN_SPEED_MULT = 0.5f;
 
-    private int speed;
     private int distanceLidar;
     private int distanceUltrasonic;
-    private int state = 0; // 0 - stopped; 1 - forward; 2 - backguard; 3 - rotating right; 4 - rotating left
-    private float angle;
-    
+    private int state = 0; // 0 - stopped; 1 - forward; 2 - backguard; 3 - rotating left; 4 - rotating right
+    private int angle;
+    private int currentScanDirection = 1; // Left = -1, Right = 1
+
+    //private bool currentScanObstacleDetected = false;
+    private bool obstacleDetected = true;
+
+    private int currentScanMaxDistance = -1;
+    private int currentScanMaxDistanceAngle = -1;
+    private int currentScanMinDistance = int.MaxValue;
+    private float minDistance = -1;
+
+    private int maxDistanceAngle = -1;
+    private bool waitNextScan = false;
+
+    private float waitEndTime = -1;
+
 
     void Start()
     {
-        crawlerDriveController = FindFirstObjectByType<CrawlerDriveController>();
+        crawlerDriveController = FindFirstObjectByType<DriveController>();
         crawlerDriveController.SetMotors(leftMotor, rightMotor);
-        debugDisplay = FindFirstObjectByType<DebugDisplay>();
-
-        i2c = FindFirstObjectByType<I2CCommunication>();
-        i2c.RegisterDevice(1, ReceiveServoAngle);
-        i2c.TransmitData(2, (int)openAngle);
+        //debugDisplay = FindFirstObjectByType<DebugDisplay>();
+        i2c = FindFirstObjectByType<I2CBus>();
+        i2c.RegisterDevice(1, null, null);
+        SendScanMaxAngle(FORWARD_SCAN_ANGLE);
     }
 
     void Update()
     {
-        // Read sensor data
+        // Simulate Wait time in Arduino. This is not required to be ported to Arduino
+        if (waitEndTime != -1)
+        {
+            if (Time.time < waitEndTime)
+            {
+                return;
+            }
+            else
+            {
+                waitEndTime = -1;
+            }    
+        }
+        RequestServoAngle();
         UpdateDistanceUltrasonic();
         UpdateDistanceLidar();
-
-        /*// Control logic based on sensor inputs
-        if (distanceUltrasonic < MIN_DISTANCE)
-        {
-            speed = 0;
-            leftMotor.SetMotorSpeed(speed);
-            rightMotor.SetMotorSpeed(speed);
-            Debug.Log("Obstacle detected! Stopping motors.");
-        }
-        else if (distanceLidar < MIN_DISTANCE * 10)
-        {
-            speed = 50;
-            leftMotor.SetMotorSpeed(-speed);
-            rightMotor.SetMotorSpeed(speed);
-            Debug.Log("Object close, moving slowly.");
-        }
-        else
-        {
-            speed = 100;
-            leftMotor.SetMotorSpeed(-speed);
-            rightMotor.SetMotorSpeed(speed);
-            Debug.Log("Path clear, moving normally.");
-        }*/
-
+        ObstacleDetection();
         Move();
 
-        debugDisplay.UpdateDisplay($"Speed: {speed}, Lidar: {distanceLidar}, Ultrasonic: {distanceUltrasonic}, Angle: {angle}");
+        debugDisplay.UpdateDisplay(
+            $"State: {state} \n" +
+            $"Lidar: {distanceLidar} \n" +
+            $"Ultrasonic: {distanceUltrasonic} \n" +
+            $"Angle: {angle} \n" +
+            $"ObstacleDetected: {obstacleDetected} \n" +
+            //$"CurrentScanMinDistance: {currentScanMinDistance} \n" +
+            $"CurrentScanMaxDistance: {currentScanMaxDistance} \n" +
+            $"CurrentScanMaxDistanceAngle: {currentScanMaxDistanceAngle} \n" +
+            $"MaxDistanceAngle: {maxDistanceAngle} \n" +
+            $"WaitNextScan: {waitNextScan} \n" +
+            //$"WaitEndTime: {waitEndTime} \n" +
+            $"Speed: {MAX_SPEED} \n"
+            );
     }
-
-    private void ReceiveServoAngle(int angle)
-    {
-        this.angle = angle;
-        Debug.Log($"Arduino received servo angle: {angle}");
-    }
-
+    
     private void UpdateDistanceLidar()
     {
         lidarSensor.ReadSensor();
@@ -102,29 +115,134 @@ public class ArduinoController : MonoBehaviour
         rightMotor.SetMotorSpeed((int)rightSpeed);
     }
 
-    void Move()
+    private void RequestServoAngle()
     {
-        float leftSpeed = MAX_SPEED;
-        float rightSpeed = MAX_SPEED;
-        double speedModifier = 0;
-        double angleRadians = 0;
-        
-        angleRadians = (Math.PI * (angle - 90)) / 180;
-        speedModifier = 1 - (Math.Abs(Math.Sin(angleRadians)) * (1 - Math.Exp(-WEIGHT_DISTANCE * distanceLidar)));
+        this.angle = i2c.RequestData(2);
+        Debug.Log($"Arduino received servo angle: {angle}");
+    }
+    private void SendScanMaxAngle(int angle)
+    {
+        i2c.TransmitData(2, angle);
+    }
 
-
-        if (angle < 90 && distanceLidar < MIN_DISTANCE)
+    private void ObstacleDetection()
+    {
+        if (angle < 0 && currentScanDirection == 1)
         {
-            leftSpeed = MAX_SPEED * (float)speedModifier;
+            if (!waitNextScan)
+            {
+                maxDistanceAngle = currentScanMaxDistanceAngle;
+                obstacleDetected = currentScanMinDistance < minDistance ? true : false;
+            }
+            
+            currentScanDirection = -1;
+            currentScanMaxDistanceAngle = -1;
+            currentScanMaxDistance = -1;
+            currentScanMinDistance = int.MaxValue;
+            waitNextScan = false;
+
+        }
+        if (angle > 0 && currentScanDirection == -1)
+        {
+            if (!waitNextScan)
+            {
+                maxDistanceAngle = currentScanMaxDistanceAngle;
+                obstacleDetected = currentScanMinDistance < minDistance ? true : false;
+            }
+
+            currentScanDirection = 1;
+            currentScanMaxDistanceAngle = -1;
+            currentScanMaxDistance = -1;
+            currentScanMinDistance = int.MaxValue;
+            waitNextScan = false;
         }
 
-        if (angle > 90 && distanceLidar < MIN_DISTANCE)
+        currentScanMaxDistanceAngle = distanceLidar > currentScanMaxDistance ? Math.Abs(angle) : currentScanMaxDistanceAngle;
+        currentScanMinDistance = Math.Min(currentScanMinDistance, distanceLidar);
+        currentScanMaxDistance = Math.Max(currentScanMaxDistance, distanceLidar);
+    }
+
+    private void Move()
+    {
+        if (state == 0) // Stopped
         {
-            rightSpeed = MAX_SPEED * (float)speedModifier;
+            if (!obstacleDetected)
+            {
+                state = 1;
+                minDistance = MIN_DISTANCE;
+            }
+            else
+            {
+                minDistance = MIN_DISTANCE * MIN_DISTANCE_MULT;
+                SendScanMaxAngle(WIDE_SCAN_ANGLE);
+                waitNextScan = true;
+                maxDistanceAngle = -1;
+                state = 5; // Wait for the farthest direction
+            }
         }
+        else if (state == 1) // Forward
+        {
+            if (obstacleDetected)
+            {
+                Move(0, 0);
+                state = 0;
+            }
+            else
+            {
+                Move(MAX_SPEED, MAX_SPEED);
+            }
+            
+        }
+        else if (state == 2) // Backward
+        {
+            if (!obstacleDetected)
+            {
+                state = 4; // Turn right after backing
+            }
+            else
+            {
+                Move(-MAX_SPEED, -MAX_SPEED);
+            }
+        }
+        else if (state == 3) // Turn left
+        {
+            if (!obstacleDetected)
+            {
+                state = 0;
+            }
+            else
+            {
+                Move(MAX_SPEED * TURN_SPEED_MULT, -MAX_SPEED * TURN_SPEED_MULT);
+            }
+            
+        }
+        else if (state == 4) // Turn right
+        {
+            if (!obstacleDetected)
+            {
+                state = 0;
+            }
+            else
+            {
+                Move(-MAX_SPEED * TURN_SPEED_MULT, MAX_SPEED * TURN_SPEED_MULT);
+            }
+        }
+        else if (state == 5) // Find farthest direction
+        {
+            if (maxDistanceAngle != -1)
+            {
+                state = (maxDistanceAngle < 90) ? 3 : 4;
+                SendScanMaxAngle(FORWARD_SCAN_ANGLE);
+                waitNextScan = true;
+                obstacleDetected = true;
+                Wait(WAIT_SERVO_POSITION);
+            }
+        }
+    }
 
-        Debug.Log($" AngleRadians: {angleRadians}, SpeedModifier: {speedModifier}, LeftSpeed: {leftSpeed}, RightSpeed: {rightSpeed}");
-
-        Move(leftSpeed, rightSpeed);
+    private void Wait(int v)
+    {
+        // calculate the next time
+        waitEndTime = Time.time + v;
     }
 }
