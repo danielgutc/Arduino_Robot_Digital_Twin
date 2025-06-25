@@ -11,6 +11,7 @@ public class DriveController : MonoBehaviour
     public GameObject replacementPrefab;
     public float speedMultiplier = 0.1f;
     public float rotationMultiplier = 1f;
+    public Vector3 initPosition = new (-2176, 146, 13329);
 
     private SimulatedMeEncoderOnBoard leftMotor;
     private SimulatedMeEncoderOnBoard rightMotor;
@@ -41,7 +42,6 @@ public class DriveController : MonoBehaviour
         {
             if (replacementPrefab != null)
             {
-                Vector3 initPosition = new Vector3(-2176, 146, 13329);
                 GameObject newInstance = Instantiate(replacementPrefab, initPosition, transform.rotation);
                 ArduinoController arduinoController = newInstance.GetComponent<ArduinoController>();
                 if (arduinoController != null)

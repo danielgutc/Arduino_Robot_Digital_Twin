@@ -13,7 +13,6 @@ namespace Servo
         public float maxAngle = 180f;
         public float rotationSpeed = 0.1f;
 
-        //private float currentAngle;
         private bool isAttached = false;
 
         private void Start()
@@ -33,9 +32,6 @@ namespace Servo
         {
             if (isAttached)
             {
-                //float step = rotationSpeed * Time.deltaTime;
-                //currentAngle = Mathf.MoveTowards(currentAngle, rangerBle.Telemetry.Angle, step);
-                //this.transform.localRotation = Quaternion.Euler(0, currentAngle, 0);
                 this.transform.localRotation = Quaternion.Euler(0, rangerBle.Telemetry.Angle, 0);
             }
         }
