@@ -70,8 +70,8 @@
     <Compile Include="Assets\Scripts\Servo\IServo.cs" />
     <Compile Include="Assets\Scripts\ArduinoController.cs" />
     <Compile Include="Assets\Scripts\I2CBus.cs" />
+    <Compile Include="Assets\Scripts\WheelDrive.cs" />
     <Compile Include="Assets\Scripts\RangerBle.cs" />
-    <Compile Include="Assets\Scenes\WheelDrive.cs" />
     <Compile Include="Assets\Scripts\RangerBuilder.cs" />
     <Compile Include="Assets\Scripts\Servo\PhysicalServo.cs" />
     <Compile Include="Assets\Scripts\TFminiS\SimulatedTFminiS.cs" />
