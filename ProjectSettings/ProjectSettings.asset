@@ -837,8 +837,8 @@ PlayerSettings:
   editorAssembliesCompatibilityLevel: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: Arduino_Robot_Digital_Twin
-  metroPackageVersion: 
+  metroPackageName: ArduinoRobotDigitalTwin
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -846,7 +846,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: Arduino_Robot_Digital_Twin
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: Arduino_Robot_Digital_Twin
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0

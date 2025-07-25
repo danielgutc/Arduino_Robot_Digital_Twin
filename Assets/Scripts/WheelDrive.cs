@@ -15,12 +15,14 @@ public class WheelDrive : MonoBehaviour
 
     public float maxMotorTorque = 1500f; // Max torque per motor wheel
     public float maxSteeringAngle = 30f; // Max steering angle
-
     public AxleInfo[] axles;
+
+    private float torque = 0f;
 
     private void FixedUpdate()
     {
-        float motor = maxMotorTorque ;
+        torque = Mathf.Lerp(torque, maxMotorTorque, Time.deltaTime * 5f);
+        
         float steering = maxSteeringAngle;
 
         foreach (AxleInfo axle in axles)
@@ -33,8 +35,8 @@ public class WheelDrive : MonoBehaviour
 
             if (axle.motor)
             {
-                axle.leftWheel.motorTorque = motor;
-                axle.rightWheel.motorTorque = motor;
+                axle.leftWheel.motorTorque = torque;
+                axle.rightWheel.motorTorque = torque;
             }
 
             UpdateWheelVisual(axle.leftWheel, axle.leftVisual);
@@ -51,6 +53,6 @@ public class WheelDrive : MonoBehaviour
         Quaternion rot;
         collider.GetWorldPose(out pos, out rot);
         visual.position = pos;
-        //visual.rotation = rot;
+        visual.rotation = rot * Quaternion.Euler(0, 0, 90); 
     }
 }
