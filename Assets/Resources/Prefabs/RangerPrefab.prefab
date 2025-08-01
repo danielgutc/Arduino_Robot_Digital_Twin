@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8072341120637273521}
   - component: {fileID: 8871745795009698779}
   m_Layer: 0
-  m_Name: ServoMotor
+  m_Name: Servo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,10 +122,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 750378bcec279f542a8455bf58c9d7e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  servoArm: {fileID: 4209880750033784334}
   minAngle: 0
   maxAngle: 180
-  rotationSpeed: 10
+  rotationSpeed: 50
 --- !u!1 &3944805252401187280
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,7 +369,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d673e969cc2644aacf5b5264608735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motorWheel: {fileID: 4416714234241606168}
   speedMultiplier: 0.05
 --- !u!1 &5319708963594307470
 GameObject:
@@ -464,7 +462,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5319708963594307470}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &2291014978750268411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -509,6 +507,54 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &6888548528602044054
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6353760304985538891}
+  - component: {fileID: 8789290269984670881}
+  m_Layer: 0
+  m_Name: BLE
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6353760304985538891
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6888548528602044054}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 12.544401, y: 1.5748004, z: -26.658}
+  m_LocalScale: {x: 0.0039999997, y: 0.0039999997, z: 0.002}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3954597697107906418}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8789290269984670881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6888548528602044054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18c0bd1f254094c498aa0787f1cf4baa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rangerNameKeyword: Makeblock_LE703e97f555d4
+  telemetryServiceUuid: 0000ffe1-0000-1000-8000-00805f9b34fb
+  telemetryCharUuid: 0000ffe2-0000-1000-8000-00805f9b34fb
+  terminalDisplay: {fileID: 0}
 --- !u!1 &7480598954244762402
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,6 +592,7 @@ Transform:
   m_LocalScale: {x: 250, y: 250, z: 500}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6353760304985538891}
   - {fileID: 90424246929310278}
   - {fileID: 4416714234241606168}
   - {fileID: 4209880750033784334}
@@ -681,12 +728,13 @@ MonoBehaviour:
   leftMotor: {fileID: 903204115744276046}
   rightMotor: {fileID: 9156286303423231944}
   ultrasonicSensor: {fileID: 5652428053857194602}
-  lidarSensor: {fileID: 4024590791684577210}
-  debugDisplay: {fileID: 0}
-  FORWARD_SCAN_ANGLE: 45
+  terminalDisplay: {fileID: 0}
+  FORWARD_SCAN_ANGLE: 90
   MIN_DISTANCE: 1000
-  MAX_SPEED: 200
+  MIN_DISTANCE_MULT: 1.5
+  MAX_SPEED: 100
   WIDE_SCAN_ANGLE: 180
+  WAIT_SERVO_POSITION: 5
   TURN_SPEED_MULT: 0.5
 --- !u!114 &5137471079555865267
 MonoBehaviour:
@@ -700,10 +748,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 922b5d929fcee72458f975e15f3667bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crawlerBody: {fileID: 6328080489703171337}
+  rangerBody: {fileID: 6328080489703171337}
   replacementPrefab: {fileID: 7480598954244762402}
   speedMultiplier: 5
   rotationMultiplier: 2
+  initPosition: {x: -2176, y: 146, z: 13329}
 --- !u!114 &5181631532660752417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -716,8 +765,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd48bb8df17af5047b0c999b5be059db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  servoMotor: {fileID: 8871745795009698779}
-  speed: 2
+  SERVO_SPEED: 10
+  SERVO_SPEED_MULT: 0.5
 --- !u!1 &7804002065980038119
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,7 +888,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d673e969cc2644aacf5b5264608735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motorWheel: {fileID: 90424246929310278}
   speedMultiplier: 0.05
 --- !u!1 &7930615738379948264
 GameObject:

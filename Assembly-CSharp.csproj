@@ -63,11 +63,11 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\ArduinoControllerExtension.cs" />
     <Compile Include="Assets\Scripts\MeEncoderOnBoard\PhysicalMeEncoderOnBoard.cs" />
+    <Compile Include="Assets\Scripts\Transmission\TransmissionControl.cs" />
     <Compile Include="Assets\Scripts\MeUltrasonicSensor\MeUltrasonicSensor.cs" />
     <Compile Include="Assets\Scripts\TFminiS\PhysicalTFminiS.cs" />
     <Compile Include="Assets\Scripts\DriveController.cs" />
     <Compile Include="Assets\Scripts\MeEncoderOnBoard\IMeEncoderOnBoard.cs" />
-    <Compile Include="Assets\Scripts\Car\WheelControl.cs" />
     <Compile Include="Assets\Scripts\Servo\IServo.cs" />
     <Compile Include="Assets\Scripts\ArduinoController.cs" />
     <Compile Include="Assets\Scripts\InputSystemActions.cs" />
@@ -83,9 +83,9 @@
     <Compile Include="Assets\Scripts\MeEncoderOnBoard\SimulatedMeEncoderOnBoard.cs" />
     <Compile Include="Assets\Scripts\Telemetry.cs" />
     <Compile Include="Assets\Scripts\TFminiS\ITFminiS.cs" />
-    <Compile Include="Assets\Scripts\Car\CarControl.cs" />
     <Compile Include="Assets\Scripts\BleApi.cs" />
     <Compile Include="Assets\Scripts\TerminalDisplay.cs" />
+    <Compile Include="Assets\Scripts\Transmission\WheelControl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\BleWinrtDll.dll" />

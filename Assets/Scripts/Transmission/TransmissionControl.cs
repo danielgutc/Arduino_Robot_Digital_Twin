@@ -1,13 +1,16 @@
+using NUnit.Framework;
+using System;
+using System.Linq;
 using UnityEngine;
 
-namespace Car
+namespace Transmission
 {
-    public class CarControl : MonoBehaviour
+    public class TransmissionControl : MonoBehaviour
     {
         [Header("Car Properties")]
         public float motorTorque = 2000f;
         public float brakeTorque = 2000f;
-        public float maxSpeed = 20f;
+        public float maxSpeed = 200f;
         public float steeringRange = 30f;
         public float steeringRangeAtMaxSpeed = 10f;
         public float centreOfGravityOffset = -1f;
@@ -53,35 +56,26 @@ namespace Car
 
             // Get player input for acceleration and steering
             float vInput = inputVector.y; // Forward/backward input
-            float hInput = inputVector.x; // Steering input
-
-            // Calculate current speed along the car's forward axis
-            float forwardSpeed = Vector3.Dot(transform.forward, rigidBody.linearVelocity);
-            float speedFactor = Mathf.InverseLerp(0, maxSpeed, Mathf.Abs(forwardSpeed)); // Normalized speed factor
-
-            // Reduce motor torque and steering at high speeds for better handling
-            float currentMotorTorque = Mathf.Lerp(motorTorque, 0, speedFactor);
-            float currentSteerRange = Mathf.Lerp(steeringRange, steeringRangeAtMaxSpeed, speedFactor);
-
-            // Determine if the player is accelerating or trying to reverse
-            bool isAccelerating = Mathf.Sign(vInput) == Mathf.Sign(forwardSpeed);
+            //float hInput = inputVector.x; // Steering input
+            float minWheelRpms = wheels.Min(w => w.WheelCollider.rpm);
 
             foreach (var wheel in wheels)
             {
-                // Apply steering to wheels that support steering
-                if (wheel.steerable)
+                if (motorTorque > 0)
                 {
-                    wheel.WheelCollider.steerAngle = hInput * currentSteerRange;
-                }
-
-                if (isAccelerating)
-                {
-                    // Apply torque to motorized wheels
                     if (wheel.motorized)
                     {
-                        wheel.WheelCollider.motorTorque = vInput * currentMotorTorque;
+                        float speedFactor = Mathf.InverseLerp(0, Math.Min(minWheelRpms, maxSpeed), Mathf.Abs(wheel.WheelCollider.rpm)); // Normalized speed factor
+                        float currentMotorTorque = Mathf.Lerp(motorTorque, 0, speedFactor);
+                        float currentSteerRange = Mathf.Lerp(steeringRange, steeringRangeAtMaxSpeed, speedFactor);
+                        if (currentMotorTorque < 1f)
+                        {
+                            Debug.Log("Low torque");
+                        }
+
+                        int direction = wheel.gameObject.name.Contains("Right")? 1 : -1;
+                        wheel.WheelCollider.motorTorque = currentMotorTorque * direction;
                     }
-                    // Release brakes when accelerating
                     wheel.WheelCollider.brakeTorque = 0f;
                 }
                 else

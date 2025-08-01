@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Car
+namespace Transmission
 {
     public class WheelControl : MonoBehaviour
     {
@@ -13,7 +13,7 @@ namespace Car
         // Editor Inspector window)
         public bool steerable;
         public bool motorized;
-
+        
         Vector3 position;
         Quaternion rotation;
 
