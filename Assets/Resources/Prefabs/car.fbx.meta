@@ -3,7 +3,17 @@ guid: 80e1f9df48d045348925830174a621eb
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Car Body
+    second: {fileID: 2800000, guid: b8c1e3e33135c4d4fb1d461796ea90c8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: wheel
+    second: {fileID: 2800000, guid: 5d2a8047931d718458f4b854b817cb41, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
