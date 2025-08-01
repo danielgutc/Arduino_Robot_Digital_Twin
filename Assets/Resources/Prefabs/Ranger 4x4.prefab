@@ -177,7 +177,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 462314963182857176}
-  m_Mesh: {fileID: 7603258759858274703, guid: 5773838ebc9bf0e469769ff27f419bdf, type: 3}
+  m_Mesh: {fileID: 7603258759858274703, guid: 80e1f9df48d045348925830174a621eb, type: 3}
 --- !u!23 &2343425958271516199
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -201,7 +201,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -7138092269131073482, guid: 5773838ebc9bf0e469769ff27f419bdf, type: 3}
+  - {fileID: -7138092269131073482, guid: 80e1f9df48d045348925830174a621eb, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -453,7 +453,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3648502230257137243}
-  m_Mesh: {fileID: -5253024756972130397, guid: 5773838ebc9bf0e469769ff27f419bdf, type: 3}
+  m_Mesh: {fileID: -5253024756972130397, guid: 80e1f9df48d045348925830174a621eb, type: 3}
 --- !u!23 &4965761732549618849
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -477,7 +477,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -7138092269131073482, guid: 5773838ebc9bf0e469769ff27f419bdf, type: 3}
+  - {fileID: -7138092269131073482, guid: 80e1f9df48d045348925830174a621eb, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -557,7 +557,7 @@ WheelCollider:
     m_AsymptoteValue: 0.5
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
@@ -627,7 +627,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4219844808491210934}
-  m_Mesh: {fileID: 6182478074745275770, guid: 5773838ebc9bf0e469769ff27f419bdf, type: 3}
+  m_Mesh: {fileID: 6182478074745275770, guid: 80e1f9df48d045348925830174a621eb, type: 3}
 --- !u!23 &7663996588108333088
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -651,7 +651,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -7138092269131073482, guid: 5773838ebc9bf0e469769ff27f419bdf, type: 3}
+  - {fileID: -7138092269131073482, guid: 80e1f9df48d045348925830174a621eb, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -713,7 +713,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5461336605204566011}
-  m_Mesh: {fileID: 4001431309364722097, guid: 5773838ebc9bf0e469769ff27f419bdf, type: 3}
+  m_Mesh: {fileID: 4001431309364722097, guid: 80e1f9df48d045348925830174a621eb, type: 3}
 --- !u!23 &3348721751367087427
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -737,7 +737,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -7138092269131073482, guid: 5773838ebc9bf0e469769ff27f419bdf, type: 3}
+  - {fileID: -7138092269131073482, guid: 80e1f9df48d045348925830174a621eb, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -817,7 +817,7 @@ WheelCollider:
     m_AsymptoteValue: 0.5
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
@@ -845,7 +845,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wheelModel: {fileID: 4776334523139843606}
   WheelCollider: {fileID: 0}
-  steerable: 1
+  steerable: 0
   motorized: 1
 --- !u!1 &6096692677700915697
 GameObject:
@@ -905,7 +905,7 @@ WheelCollider:
     m_AsymptoteValue: 0.5
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
@@ -933,7 +933,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wheelModel: {fileID: 7703564853565590195}
   WheelCollider: {fileID: 0}
-  steerable: 1
+  steerable: 0
   motorized: 1
 --- !u!1 &7075456435733470056
 GameObject:
@@ -993,7 +993,7 @@ WheelCollider:
     m_AsymptoteValue: 0.5
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75

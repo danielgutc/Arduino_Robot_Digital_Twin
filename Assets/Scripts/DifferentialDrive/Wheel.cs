@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Transmission
 {
-    public class WheelControl : MonoBehaviour
+    public class Wheel : MonoBehaviour
     {
         public Transform wheelModel;
 

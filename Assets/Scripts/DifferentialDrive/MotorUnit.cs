@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace Transmission
 {
-    public class TransmissionControl : MonoBehaviour
+    public class MotorUnit: MonoBehaviour
     {
-        [Header("Car Properties")]
+        [Header("MotorUnit Properties")]
         public float motorTorque = 2000f;
         public float brakeTorque = 2000f;
         public float maxSpeed = 200f;
@@ -15,24 +15,8 @@ namespace Transmission
         public float steeringRangeAtMaxSpeed = 10f;
         public float centreOfGravityOffset = -1f;
 
-        private WheelControl[] wheels;
+        private Wheel[] wheels;
         private Rigidbody rigidBody;
-
-        private InputSystemActions carControls; // Reference to the new input system
-
-        void Awake()
-        {
-            carControls = new InputSystemActions(); // Initialize Input Actions
-        }
-        void OnEnable()
-        {
-            carControls.Enable();
-        }
-
-        void OnDisable()
-        {
-            carControls.Disable();
-        }
 
         // Start is called before the first frame update
         void Start()
@@ -45,17 +29,12 @@ namespace Transmission
             rigidBody.centerOfMass = centerOfMass;
 
             // Get all wheel components attached to the car
-            wheels = GetComponentsInChildren<WheelControl>();
+            wheels = GetComponentsInChildren<Wheel>();
         }
 
         // FixedUpdate is called at a fixed time interval
         void FixedUpdate()
         {
-            // Read the Vector2 input from the new Input System
-            Vector2 inputVector = carControls.Player.Move.ReadValue<Vector2>();
-
-            // Get player input for acceleration and steering
-            float vInput = inputVector.y; // Forward/backward input
             //float hInput = inputVector.x; // Steering input
             float minWheelRpms = wheels.Min(w => w.WheelCollider.rpm);
 
@@ -82,7 +61,7 @@ namespace Transmission
                 {
                     // Apply brakes when reversing direction
                     wheel.WheelCollider.motorTorque = 0f;
-                    wheel.WheelCollider.brakeTorque = Mathf.Abs(vInput) * brakeTorque;
+                    wheel.WheelCollider.brakeTorque = brakeTorque;
                 }
             }
         }
