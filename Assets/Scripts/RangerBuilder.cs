@@ -1,3 +1,6 @@
+using DiferentialDrive;
+using MeEncoderOnBoard;
+using MeUltrasonicSensor;
 using Servo;
 using System;
 using TFminiS;
@@ -51,6 +54,37 @@ public class RangerBuilder
 
         ArduinoControllerExtension controllerExtension = ranger.GetComponent<ArduinoControllerExtension>();
         controllerExtension.servo = servo.GetComponent<IServo>();
+
+        return this;
+    }
+
+    public RangerBuilder SetMeEncodersOnBoard(string meEncodersOnBoardPrefabPath)
+    {
+        GameObject meEncodersOnBoardPrefab = Resources.Load<GameObject>(meEncodersOnBoardPrefabPath);
+        GameObject leftMotor = GameObject.Instantiate(meEncodersOnBoardPrefab, ranger.transform);
+        leftMotor.name = "LeftMotor";
+        GameObject rightMotor = GameObject.Instantiate(meEncodersOnBoardPrefab, ranger.transform);
+        rightMotor.name = "RightMotor";
+
+        ArduinoController controller = ranger.GetComponent<ArduinoController>();
+        controller.leftMotor = leftMotor.GetComponent<IMeEncoderOnBoard>();
+        controller.rightMotor = rightMotor.GetComponent<IMeEncoderOnBoard>();
+
+        MotorUnit motorUnit = ranger.GetComponent<MotorUnit>();
+        motorUnit.leftMotor = controller.leftMotor;
+        motorUnit.rightMotor = controller.rightMotor;
+
+        return this;
+    }
+
+    public RangerBuilder SetUltrasonicSensor(string ultrasonicSensorPrefabPath)
+    {
+        GameObject ultrasonicSensorPrefab = Resources.Load<GameObject>(ultrasonicSensorPrefabPath);
+        GameObject ultrasonicSensor = GameObject.Instantiate(ultrasonicSensorPrefab, ranger.transform);
+        ultrasonicSensor.name = "UltrasonicSensor";
+
+        ArduinoController controller = ranger.GetComponent<ArduinoController>();
+        controller.ultrasonicSensor = ultrasonicSensor.GetComponent<IMeUltrasonicSensor>();
 
         return this;
     }

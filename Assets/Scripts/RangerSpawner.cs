@@ -8,8 +8,7 @@ public class RangerSpawner : MonoBehaviour
     
     public enum RangerType
     {
-        RangerModularPrefab,
-        RangerPrefab
+        RangerModularPrefab
     }
     
     public enum LidarType
@@ -24,10 +23,24 @@ public class RangerSpawner : MonoBehaviour
         ServoSimulatedPrefab
     }
 
+    public enum MeEncoderOnBoardType
+    {
+        MeEncoderOnBoardPhysicalPrefab,
+        MeEncoderOnBoardSimulatedPrefab
+    }
+
+    public enum MeUltrasonicSensorType
+    {
+        MeUltrasonicSensorPhysicalPrefab,
+        MeUltrasonicSensorSimulatedPrefab
+    }
+
     public RangerType rangerType= RangerType.RangerModularPrefab;
     public LidarType lidarType = LidarType.LidarSimulatedPrefab;
     public ServoType servoType = ServoType.ServoSimulatedPrefab;
-    public Vector3 rangerPosition = new(-2176, 242, 13329);
+    public MeEncoderOnBoardType meEncodersOnBoardType = MeEncoderOnBoardType.MeEncoderOnBoardSimulatedPrefab;
+    public MeUltrasonicSensorType meUltrasonicSensorType = MeUltrasonicSensorType.MeUltrasonicSensorSimulatedPrefab;
+    public Vector3 rangerPosition = new(10000, 10001, 10000);
     public TerminalDisplay terminal;
 
     void Start()
@@ -35,8 +48,10 @@ public class RangerSpawner : MonoBehaviour
         RangerBuilder rangerBuilder = new();
         GameObject ranger = rangerBuilder
             .NewRanger(prefabsPath + rangerType.ToString())
+            .SetMeEncodersOnBoard(prefabsPath + meEncodersOnBoardType.ToString())
             .SetServo(prefabsPath + servoType.ToString())
             .SetLidar(prefabsPath + lidarType.ToString())
+            .SetUltrasonicSensor(prefabsPath + meUltrasonicSensorType.ToString())
             .SetTerminal(terminal)
             .Build();
 

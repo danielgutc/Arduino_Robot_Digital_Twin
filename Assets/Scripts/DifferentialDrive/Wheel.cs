@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Transmission
+namespace DiferentialDrive
 {
     public class Wheel : MonoBehaviour
     {

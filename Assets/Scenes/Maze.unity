@@ -2146,7 +2146,7 @@ PrefabInstance:
       objectReference: {fileID: 535944821}
     - target: {fileID: 7480598954244762402, guid: 36c292f65d1a9674f9f7f16b69bfd0aa, type: 3}
       propertyPath: m_Name
-      value: Ranger
+      value: Ranger_v0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7480598954244762402, guid: 36c292f65d1a9674f9f7f16b69bfd0aa, type: 3}
       propertyPath: m_IsActive
@@ -3526,7 +3526,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2596304134535357442, guid: ca4c63bd3964ba24aa43d0d9e8ac81f2, type: 3}
       propertyPath: m_Name
-      value: Ranger 4x4
+      value: Ranger
       objectReference: {fileID: 0}
     - target: {fileID: 5941617683424965973, guid: ca4c63bd3964ba24aa43d0d9e8ac81f2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3569,10 +3569,72 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5177803412374478857, guid: ca4c63bd3964ba24aa43d0d9e8ac81f2, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2596304134535357442, guid: ca4c63bd3964ba24aa43d0d9e8ac81f2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7886975523157403849}
+    - targetCorrespondingSourceObject: {fileID: 2596304134535357442, guid: ca4c63bd3964ba24aa43d0d9e8ac81f2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7886975523157403848}
+    - targetCorrespondingSourceObject: {fileID: 2596304134535357442, guid: ca4c63bd3964ba24aa43d0d9e8ac81f2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7886975523157403847}
   m_SourcePrefab: {fileID: 100100000, guid: ca4c63bd3964ba24aa43d0d9e8ac81f2, type: 3}
+--- !u!1 &7367883351410029182 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2596304134535357442, guid: ca4c63bd3964ba24aa43d0d9e8ac81f2, type: 3}
+  m_PrefabInstance: {fileID: 1801730032805047928}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7886975523157403847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7367883351410029182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd48bb8df17af5047b0c999b5be059db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SERVO_SPEED: 2
+  SERVO_SPEED_MULT: 0.2
+--- !u!114 &7886975523157403848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7367883351410029182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5924ebd32feae6d4ca5d249c054f5854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ultrasonicSensor: {fileID: 0}
+  terminalDisplay: {fileID: 0}
+  FORWARD_SCAN_ANGLE: 45
+  MIN_DISTANCE: 1000
+  MIN_DISTANCE_MULT: 1.5
+  MAX_SPEED: 100
+  WIDE_SCAN_ANGLE: 180
+  WAIT_SERVO_POSITION: 5
+  TURN_SPEED_MULT: 0.5
+--- !u!114 &7886975523157403849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7367883351410029182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b800fd14201cf4e93f2938d4823686, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

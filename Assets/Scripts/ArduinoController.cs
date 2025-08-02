@@ -2,17 +2,17 @@ using System;
 using TFminiS;
 using MeEncoderOnBoard;
 using UnityEngine;
+using DiferentialDrive;
+using MeUltrasonicSensor;
 
 public class ArduinoController : MonoBehaviour
 {
     private I2CBus i2c;
-    public SimulatedMeEncoderOnBoard leftMotor;
-    public SimulatedMeEncoderOnBoard rightMotor;
-    public MeUltrasonicSensor ultrasonicSensor;
+    public IMeEncoderOnBoard leftMotor;
+    public IMeEncoderOnBoard rightMotor;
+    public IMeUltrasonicSensor ultrasonicSensor;
     public ITFminiS lidarSensor;
     public TerminalDisplay terminalDisplay;
-
-    private DriveController rangerDriveController;
 
     public int FORWARD_SCAN_ANGLE = 45;
     public int MIN_DISTANCE = 1000;
@@ -41,8 +41,8 @@ public class ArduinoController : MonoBehaviour
 
     void Start()
     {
-        rangerDriveController = FindFirstObjectByType<DriveController>();
-        rangerDriveController.SetMotors(leftMotor, rightMotor);
+        //rangerDriveController = FindFirstObjectByType<DriveController>();
+        //rangerDriveController.SetMotors(leftMotor, rightMotor);
         i2c = FindFirstObjectByType<I2CBus>();
         i2c.RegisterDevice(1, null, null);
         SendScanMaxAngle(FORWARD_SCAN_ANGLE);

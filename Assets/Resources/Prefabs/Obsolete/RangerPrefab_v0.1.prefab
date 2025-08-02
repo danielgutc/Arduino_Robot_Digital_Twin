@@ -573,7 +573,7 @@ GameObject:
   - component: {fileID: 5137471079555865267}
   - component: {fileID: 5181631532660752417}
   m_Layer: 0
-  m_Name: RangerPrefab
+  m_Name: RangerPrefab_v0.1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
