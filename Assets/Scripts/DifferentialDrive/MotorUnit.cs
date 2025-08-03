@@ -8,6 +8,7 @@ namespace DiferentialDrive
     {
         [Header("Motor Unit Properties")]
         public float brakeTorque = 99999999f;
+        public float torqueMultiplier = 10f;
         public float centreOfGravityOffset = -1f;
 
         public IMeEncoderOnBoard leftMotor;
@@ -46,9 +47,10 @@ namespace DiferentialDrive
 
                         float maxSpeed = wheel.gameObject.name.Contains("Right") ? rightMotor.GetCurrentSpeed() : leftMotor.GetCurrentSpeed();
                         float speedFactor = Mathf.InverseLerp(0, Mathf.Min(Mathf.Abs(minWheelRpms), Mathf.Abs(maxSpeed)), Mathf.Abs(wheel.WheelCollider.rpm)); // Normalized speed factor
-                        float currentMotorTorque = Mathf.Lerp(maxSpeed, 0, speedFactor);
+                        float currentMotorTorque = Mathf.Lerp(0 , Mathf.Abs(maxSpeed), speedFactor); 
+                        currentMotorTorque = currentMotorTorque * (maxSpeed < 0 ? -1 : 1);
 
-                        wheel.WheelCollider.motorTorque = currentMotorTorque;
+                        wheel.WheelCollider.motorTorque = currentMotorTorque * torqueMultiplier;
                     }
                     wheel.WheelCollider.brakeTorque = 0f;
                 }

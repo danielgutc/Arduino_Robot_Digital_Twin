@@ -22,7 +22,7 @@ public class RangerBuilder
 
     public RangerBuilder SetLidar(string lidarPrefabPath)
     {
-        Transform servo = ranger.transform.Find("Servo");
+        Transform servo = ranger.transform.Find("Servo Base").Find("Servo");
         if (servo == null)
         {
             throw new Exception("Servo not found. Please build the servo by invoking SetServo() before building the lidar");
@@ -48,8 +48,9 @@ public class RangerBuilder
 
     public RangerBuilder SetServo(string servoPrefabPath)
     {
+        Transform servoBase = ranger.transform.Find("Servo Base");
         GameObject servoPrefab = Resources.Load<GameObject>(servoPrefabPath);
-        GameObject servo = GameObject.Instantiate(servoPrefab, ranger.transform);
+        GameObject servo = GameObject.Instantiate(servoPrefab, servoBase);
         servo.name = "Servo";
 
         ArduinoControllerExtension controllerExtension = ranger.GetComponent<ArduinoControllerExtension>();
