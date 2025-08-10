@@ -1,3 +1,4 @@
+using Ble;
 using System;
 using UnityEngine;
 
@@ -6,7 +7,6 @@ namespace TFminiS
     public class PhysicalTFminiS : MonoBehaviour, ITFminiS
     {
         public RangerBle rangerBle;
-        public float DIST_MULT = 0.1f; //Twin scale 10:1, so 1 meter in Unity is 10 centimeters in real world
         private int distance;
         private int strength;
         private int temperature;
@@ -44,7 +44,7 @@ namespace TFminiS
 
         public void ReadSensor()
         {
-            distance = (int)((float)rangerBle.Telemetry.Lidar * DIST_MULT);
+            distance = rangerBle.Telemetry.Lidar;
         }
 
 

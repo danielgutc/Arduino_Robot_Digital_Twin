@@ -1,3 +1,4 @@
+using Ble;
 using UnityEngine;
 
 namespace MeEncoderOnBoard

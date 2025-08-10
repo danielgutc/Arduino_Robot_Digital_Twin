@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: -1446502141754920295}
   - component: {fileID: -4188776242602133566}
   - component: {fileID: 1698011919753004641}
-  - component: {fileID: 114913230435152575}
+  - component: {fileID: 8621428818774547767}
   m_Layer: 0
   m_Name: RangerModularPrefab
   m_TagString: Untagged
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b800fd14201cf4e93f2938d4823686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114913230435152575
+--- !u!114 &8621428818774547767
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -258,11 +258,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2596304134535357442}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18c0bd1f254094c498aa0787f1cf4baa, type: 3}
+  m_Script: {fileID: 11500000, guid: f1c847b29776e65488776a70f6063bf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rangerNameKeyword: Makeblock_LE703e97f555d4
-  telemetryServiceUuid: 0000ffe1-0000-1000-8000-00805f9b34fb
+  telemetryServiceUuid: 00006287-3c17-d293-8e48-14fe2e4da212
   telemetryCharUuid: 0000ffe2-0000-1000-8000-00805f9b34fb
   terminalDisplay: {fileID: 0}
 --- !u!1 &3136637882344126375
