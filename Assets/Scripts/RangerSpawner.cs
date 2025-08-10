@@ -23,6 +23,12 @@ public class RangerSpawner : MonoBehaviour
         ServoSimulatedPrefab
     }
 
+    public enum DifferentialDriveType
+    {
+        DifferentialDrivePhysicsPrefab,
+        DifferentialDriveTransformPrefab
+    }
+
     public enum MeEncoderOnBoardType
     {
         MeEncoderOnBoardPhysicalPrefab,
@@ -36,23 +42,27 @@ public class RangerSpawner : MonoBehaviour
     }
 
     public RangerType rangerType= RangerType.RangerModularPrefab;
-    public LidarType lidarType = LidarType.LidarSimulatedPrefab;
-    public ServoType servoType = ServoType.ServoSimulatedPrefab;
+    public DifferentialDriveType differentialDriveType = DifferentialDriveType.DifferentialDriveTransformPrefab;
     public MeEncoderOnBoardType meEncodersOnBoardType = MeEncoderOnBoardType.MeEncoderOnBoardSimulatedPrefab;
+    public ServoType servoType = ServoType.ServoSimulatedPrefab;
+    public LidarType lidarType = LidarType.LidarSimulatedPrefab;
     public MeUltrasonicSensorType meUltrasonicSensorType = MeUltrasonicSensorType.MeUltrasonicSensorSimulatedPrefab;
     public Vector3 rangerPosition = new(10000, 10001, 10000);
     public TerminalDisplay terminal;
+    public TerminalDisplay bleTerminal;
 
     void Start()
     {
         RangerBuilder rangerBuilder = new();
         GameObject ranger = rangerBuilder
             .NewRanger(prefabsPath + rangerType.ToString())
+            .SetDiffentialDrive(prefabsPath + differentialDriveType.ToString())
             .SetMeEncodersOnBoard(prefabsPath + meEncodersOnBoardType.ToString())
             .SetServo(prefabsPath + servoType.ToString())
             .SetLidar(prefabsPath + lidarType.ToString())
             .SetUltrasonicSensor(prefabsPath + meUltrasonicSensorType.ToString())
             .SetTerminal(terminal)
+            .SetBleTerminal(bleTerminal)
             .Build();
 
         ranger.transform.position = rangerPosition;

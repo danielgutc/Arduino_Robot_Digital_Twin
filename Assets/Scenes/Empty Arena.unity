@@ -221,8 +221,8 @@ Transform:
   m_GameObject: {fileID: 64881058}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -50, y: 0, z: 0}
-  m_LocalScale: {x: 101, y: 2, z: 1}
+  m_LocalPosition: {x: -50, y: 2, z: 0}
+  m_LocalScale: {x: 101, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 450254218}
@@ -236,7 +236,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 76704441}
-  - component: {fileID: 76704442}
   - component: {fileID: 76704443}
   m_Layer: 0
   m_Name: Ranger Manager
@@ -260,22 +259,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &76704442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 76704440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18c0bd1f254094c498aa0787f1cf4baa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rangerNameKeyword: Makeblock_LE703e97f555d4
-  telemetryServiceUuid: 0000ffe1-0000-1000-8000-00805f9b34fb
-  telemetryCharUuid: 0000ffe2-0000-1000-8000-00805f9b34fb
-  terminalDisplay: {fileID: 889943090}
 --- !u!114 &76704443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,12 +272,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rangerType: 0
-  lidarType: 1
-  servoType: 1
+  differentialDriveType: 1
   meEncodersOnBoardType: 1
+  servoType: 1
+  lidarType: 1
   meUltrasonicSensorType: 1
   rangerPosition: {x: 10000, y: 10002, z: 10000}
   terminal: {fileID: 535944821}
+  bleTerminal: {fileID: 889943090}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1406,8 +1391,8 @@ Transform:
   m_GameObject: {fileID: 1834071429}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -50}
-  m_LocalScale: {x: 100, y: 2, z: 1}
+  m_LocalPosition: {x: 0, y: 2, z: -50}
+  m_LocalScale: {x: 100, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 450254218}
@@ -1514,8 +1499,8 @@ Transform:
   m_GameObject: {fileID: 1897387041}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 50}
-  m_LocalScale: {x: 100, y: 2, z: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 50}
+  m_LocalScale: {x: 100, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 450254218}
@@ -1622,8 +1607,8 @@ Transform:
   m_GameObject: {fileID: 1987887580}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 50, y: 0, z: 0}
-  m_LocalScale: {x: 101, y: 2, z: 1}
+  m_LocalPosition: {x: 50, y: 2, z: 0}
+  m_LocalScale: {x: 101, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 450254218}

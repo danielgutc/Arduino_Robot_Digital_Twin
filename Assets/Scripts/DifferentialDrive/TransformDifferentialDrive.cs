@@ -1,3 +1,4 @@
+using DifferentialDrive;
 using MeEncoderOnBoard;
 using System;
 using UnityEngine;
@@ -9,26 +10,31 @@ namespace DiferentialDrive
      * This class controls the movement of the ranger robot using two motors. 
      * It simulates the movement of a tracked vehicle.
      * */
-    [Obsolete]
-    public class DriveController : MonoBehaviour
+    public class TransformDifferentialDrive: MonoBehaviour, IDifferentialDrive
     {
         public Rigidbody rangerBody; // Assign the rigidbody of the chassis
         public GameObject replacementPrefab;
         public float speedMultiplier = 0.1f;
         public float rotationMultiplier = 1f;
-        public Vector3 initPosition = new(-2176, 146, 13329);
+        //public Vector3 initPosition = new(-2176, 146, 13329);
 
-        private SimulatedMeEncoderOnBoard leftMotor;
-        private SimulatedMeEncoderOnBoard rightMotor;
+        private IMeEncoderOnBoard leftMotor;
+        private IMeEncoderOnBoard rightMotor;
 
-        public void SetMotors(SimulatedMeEncoderOnBoard leftMotor, SimulatedMeEncoderOnBoard rightMotor)
+        public void SetElements(Rigidbody rangerBody, IMeEncoderOnBoard leftMotor, IMeEncoderOnBoard rightMotor)
         {
+            this.rangerBody = rangerBody;
             this.leftMotor = leftMotor;
             this.rightMotor = rightMotor;
         }
 
         void FixedUpdate()
         {
+            if (leftMotor == null || rightMotor == null)
+            {
+                return;
+            }
+
             var leftSpeed = -leftMotor.GetCurrentSpeed();
             var rightSpeed = rightMotor.GetCurrentSpeed();
             float forwardSpeed = (leftSpeed + rightSpeed) * speedMultiplier;
@@ -39,6 +45,7 @@ namespace DiferentialDrive
             rangerBody.MoveRotation(rangerBody.rotation * Quaternion.Euler(0, rotation * Time.fixedDeltaTime, 0));
         }
 
+        /*
         void OnCollisionEnter(Collision collision)
         {
             Debug.Log($"Collision detected with: {collision.gameObject.name}");
@@ -62,7 +69,7 @@ namespace DiferentialDrive
                 }
                 Destroy(gameObject);
             }
-        }
+        }*/
 
     }
 }

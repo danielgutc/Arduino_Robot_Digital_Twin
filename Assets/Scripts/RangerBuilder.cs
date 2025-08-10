@@ -1,4 +1,5 @@
 using DiferentialDrive;
+using DifferentialDrive;
 using MeEncoderOnBoard;
 using MeUltrasonicSensor;
 using Servo;
@@ -46,6 +47,14 @@ public class RangerBuilder
         return this;
     }
 
+    public RangerBuilder SetBleTerminal(TerminalDisplay bleTerminal)
+    {
+        RangerBle ble = ranger.GetComponent<RangerBle>();
+        ble.terminalDisplay = bleTerminal;
+
+        return this;
+    }
+
     public RangerBuilder SetServo(string servoPrefabPath)
     {
         Transform servoBase = ranger.transform.Find("Servo Base");
@@ -56,6 +65,15 @@ public class RangerBuilder
         ArduinoControllerExtension controllerExtension = ranger.GetComponent<ArduinoControllerExtension>();
         controllerExtension.servo = servo.GetComponent<IServo>();
 
+        return this;
+    }
+
+    public RangerBuilder SetDiffentialDrive(string differentialDrivePrefabPath)
+    {
+        GameObject differentialDrivePrefab = Resources.Load<GameObject>(differentialDrivePrefabPath);
+        GameObject differentialDrive = GameObject.Instantiate(differentialDrivePrefab, ranger.transform);
+        differentialDrive.name = "DifferentialDrive";
+        
         return this;
     }
 
@@ -71,10 +89,9 @@ public class RangerBuilder
         controller.leftMotor = leftMotor.GetComponent<IMeEncoderOnBoard>();
         controller.rightMotor = rightMotor.GetComponent<IMeEncoderOnBoard>();
 
-        MotorUnit motorUnit = ranger.GetComponent<MotorUnit>();
-        motorUnit.leftMotor = controller.leftMotor;
-        motorUnit.rightMotor = controller.rightMotor;
-
+        IDifferentialDrive differentialDrive = ranger.GetComponentInChildren<IDifferentialDrive>();
+        differentialDrive.SetElements(ranger.GetComponent<Rigidbody>(), controller.leftMotor, controller.rightMotor);
+        
         return this;
     }
 
