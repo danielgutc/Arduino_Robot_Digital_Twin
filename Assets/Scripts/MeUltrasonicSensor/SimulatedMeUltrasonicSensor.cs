@@ -5,7 +5,7 @@ namespace MeUltrasonicSensor
     public class SimulatedMeUltrasonicSensor : MonoBehaviour, IMeUltrasonicSensor
     {
         public Transform sensorTransform;
-        public float detectionRange = 100f;
+        public float detectionRange = 30f;
 
         // TODO Return the minimum distance detected by the sensor in a cone in front of it
         public float GetDistanceCm()

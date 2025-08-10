@@ -5,7 +5,7 @@ namespace TFminiS
     public class SimulatedTFminiS : MonoBehaviour, ITFminiS
     {
         public Transform sensorTransform;
-        public int detectionRange = 12;
+        public int detectionRange = 40;
         private int distance;
         private int strength;
         private int temperature;

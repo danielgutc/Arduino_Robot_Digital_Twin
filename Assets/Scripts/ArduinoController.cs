@@ -15,7 +15,7 @@ public class ArduinoController : MonoBehaviour
     public TerminalDisplay terminalDisplay;
 
     public int FORWARD_SCAN_ANGLE = 45;
-    public int MIN_DISTANCE = 1000;
+    public int MIN_DISTANCE = 5;
     public float MIN_DISTANCE_MULT = 1.5f;
     public int MAX_SPEED = 100; 
     public int WIDE_SCAN_ANGLE = 180;

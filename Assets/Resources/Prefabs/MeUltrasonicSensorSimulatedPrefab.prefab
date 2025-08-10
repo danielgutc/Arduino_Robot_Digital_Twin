@@ -122,4 +122,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sensorTransform: {fileID: 6767183132408416784}
-  detectionRange: 1000
+  detectionRange: 30
