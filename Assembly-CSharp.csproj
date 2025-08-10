@@ -70,7 +70,6 @@
     <Compile Include="Assets\Scripts\Servo\IServo.cs" />
     <Compile Include="Assets\Scripts\Ble\BleApi.cs" />
     <Compile Include="Assets\Scripts\ArduinoController.cs" />
-    <Compile Include="Assets\Scripts\InputSystemActions.cs" />
     <Compile Include="Assets\Scripts\I2CBus.cs" />
     <Compile Include="Assets\Scripts\DifferentialDrive\IDifferentialDrive.cs" />
     <Compile Include="Assets\Scripts\MeUltrasonicSensor\SimulatedMeUltrasonicSensor.cs" />
