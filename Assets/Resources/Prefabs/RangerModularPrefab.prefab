@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 155858631996632291}
   serializedVersion: 2
   m_LocalRotation: {x: 0.09133578, y: -0, z: -0, w: 0.9958202}
-  m_LocalPosition: {x: 0.6, y: 2.94, z: -6.63}
+  m_LocalPosition: {x: 0.6, y: 2.42, z: -3.84}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -167,7 +167,7 @@ Transform:
   m_GameObject: {fileID: 2596304134535357442}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -216,13 +216,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   terminalDisplay: {fileID: 0}
-  FORWARD_SCAN_ANGLE: 45
+  FORWARD_SCAN_ANGLE: 60
   MIN_DISTANCE: 7
   MIN_DISTANCE_MULT: 1
-  MAX_SPEED: 100
+  MAX_SPEED: 180
   WIDE_SCAN_ANGLE: 180
-  WAIT_SERVO_POSITION: 5
-  TURN_SPEED_MULT: 0.5
+  WAIT_SERVO_POSITION: 1.5
+  TURN_SPEED_MULT: 1.5
 --- !u!114 &-4188776242602133566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,8 +235,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd48bb8df17af5047b0c999b5be059db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SERVO_SPEED: 2
-  SERVO_SPEED_MULT: 0.2
+  SERVO_SPEED: 1
+  SERVO_SPEED_MULT: 0.5
 --- !u!114 &1698011919753004641
 MonoBehaviour:
   m_ObjectHideFlags: 0

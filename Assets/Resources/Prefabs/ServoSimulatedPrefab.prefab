@@ -123,4 +123,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minAngle: 0
   maxAngle: 180
-  rotationSpeed: 10
+  rotationSpeed: 50

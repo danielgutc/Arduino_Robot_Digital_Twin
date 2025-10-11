@@ -19,7 +19,7 @@ public class ArduinoController : MonoBehaviour
     public float MIN_DISTANCE_MULT = 1.5f;
     public int MAX_SPEED = 100; 
     public int WIDE_SCAN_ANGLE = 180;
-    public int WAIT_SERVO_POSITION = 5;
+    public float WAIT_SERVO_POSITION = 1.5f;
     public float TURN_SPEED_MULT = 0.5f;
 
     private int distanceLidar;
@@ -235,9 +235,9 @@ public class ArduinoController : MonoBehaviour
         }
     }
 
-    private void Wait(int v)
+    private void Wait(float t)
     {
         // calculate the next time
-        waitEndTime = Time.time + v;
+        waitEndTime = Time.time + t;
     }
 }
