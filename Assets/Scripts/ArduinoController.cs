@@ -1,26 +1,25 @@
 using System;
-using System.Collections;
-using System.Threading;
-using Unity.VisualScripting;
+using TFminiS;
+using MeEncoderOnBoard;
 using UnityEngine;
+using DiferentialDrive;
+using MeUltrasonicSensor;
 
 public class ArduinoController : MonoBehaviour
 {
     private I2CBus i2c;
-    public MeEncoderOnBoard leftMotor;
-    public MeEncoderOnBoard rightMotor;
-    public MeUltrasonicSensor ultrasonicSensor;
-    public TFminiS lidarSensor;
-    public DebugDisplay debugDisplay;
-
-    private DriveController crawlerDriveController;
+    public IMeEncoderOnBoard leftMotor;
+    public IMeEncoderOnBoard rightMotor;
+    public IMeUltrasonicSensor ultrasonicSensor;
+    public ITFminiS lidarSensor;
+    public TerminalDisplay terminalDisplay;
 
     public int FORWARD_SCAN_ANGLE = 45;
-    public int MIN_DISTANCE = 1000;
+    public int MIN_DISTANCE = 5;
     public float MIN_DISTANCE_MULT = 1.5f;
     public int MAX_SPEED = 100; 
     public int WIDE_SCAN_ANGLE = 180;
-    public int WAIT_SERVO_POSITION = 5;
+    public float WAIT_SERVO_POSITION = 1.5f;
     public float TURN_SPEED_MULT = 0.5f;
 
     private int distanceLidar;
@@ -36,18 +35,14 @@ public class ArduinoController : MonoBehaviour
     private int currentScanMaxDistanceAngle = -1;
     private int currentScanMinDistance = int.MaxValue;
     private float minDistance = -1;
-
     private int maxDistanceAngle = -1;
     private bool waitNextScan = false;
-
     private float waitEndTime = -1;
-
 
     void Start()
     {
-        crawlerDriveController = FindFirstObjectByType<DriveController>();
-        crawlerDriveController.SetMotors(leftMotor, rightMotor);
-        //debugDisplay = FindFirstObjectByType<DebugDisplay>();
+        //rangerDriveController = FindFirstObjectByType<DriveController>();
+        //rangerDriveController.SetMotors(leftMotor, rightMotor);
         i2c = FindFirstObjectByType<I2CBus>();
         i2c.RegisterDevice(1, null, null);
         SendScanMaxAngle(FORWARD_SCAN_ANGLE);
@@ -55,7 +50,7 @@ public class ArduinoController : MonoBehaviour
 
     void Update()
     {
-        // Simulate Wait time in Arduino. This is not required to be ported to Arduino
+        // Simulate Wait time in Arduino
         if (waitEndTime != -1)
         {
             if (Time.time < waitEndTime)
@@ -67,25 +62,25 @@ public class ArduinoController : MonoBehaviour
                 waitEndTime = -1;
             }    
         }
+
         RequestServoAngle();
         UpdateDistanceUltrasonic();
         UpdateDistanceLidar();
         ObstacleDetection();
         Move();
 
-        debugDisplay.UpdateDisplay(
+        terminalDisplay.UpdateDisplay(
             $"State: {state} \n" +
             $"Lidar: {distanceLidar} \n" +
             $"Ultrasonic: {distanceUltrasonic} \n" +
             $"Angle: {angle} \n" +
             $"ObstacleDetected: {obstacleDetected} \n" +
-            //$"CurrentScanMinDistance: {currentScanMinDistance} \n" +
             $"CurrentScanMaxDistance: {currentScanMaxDistance} \n" +
             $"CurrentScanMaxDistanceAngle: {currentScanMaxDistanceAngle} \n" +
             $"MaxDistanceAngle: {maxDistanceAngle} \n" +
             $"WaitNextScan: {waitNextScan} \n" +
-            //$"WaitEndTime: {waitEndTime} \n" +
-            $"Speed: {MAX_SPEED} \n"
+            $"LeftMotorSpeed: {leftMotor.GetCurrentSpeed()} \n" +
+            $"RightMotorSpeed: {rightMotor.GetCurrentSpeed()}"
             );
     }
     
@@ -240,9 +235,9 @@ public class ArduinoController : MonoBehaviour
         }
     }
 
-    private void Wait(int v)
+    private void Wait(float t)
     {
         // calculate the next time
-        waitEndTime = Time.time + v;
+        waitEndTime = Time.time + t;
     }
 }
