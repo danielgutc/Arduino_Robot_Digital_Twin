@@ -7,7 +7,7 @@ using MeUltrasonicSensor;
 
 public class ArduinoController : MonoBehaviour
 {
-    private I2CBus i2c;
+    protected I2CBus i2c;
     public IMeEncoderOnBoard leftMotor;
     public IMeEncoderOnBoard rightMotor;
     public IMeUltrasonicSensor ultrasonicSensor;
@@ -22,15 +22,13 @@ public class ArduinoController : MonoBehaviour
     public float WAIT_SERVO_POSITION = 1.5f;
     public float TURN_SPEED_MULT = 0.5f;
 
-    private int distanceLidar;
-    private int distanceUltrasonic;
+    protected int distanceLidar;
+    protected int distanceUltrasonic;
     private int state = 0; // 0 - stopped; 1 - forward; 2 - backguard; 3 - rotating left; 4 - rotating right
-    private int angle;
+    protected int angle;
     private int currentScanDirection = 1; // Left = -1, Right = 1
 
-    //private bool currentScanObstacleDetected = false;
     private bool obstacleDetected = true;
-
     private int currentScanMaxDistance = -1;
     private int currentScanMaxDistanceAngle = -1;
     private int currentScanMinDistance = int.MaxValue;
@@ -41,8 +39,6 @@ public class ArduinoController : MonoBehaviour
 
     void Start()
     {
-        //rangerDriveController = FindFirstObjectByType<DriveController>();
-        //rangerDriveController.SetMotors(leftMotor, rightMotor);
         i2c = FindFirstObjectByType<I2CBus>();
         i2c.RegisterDevice(1, null, null);
         SendScanMaxAngle(FORWARD_SCAN_ANGLE);
@@ -84,7 +80,7 @@ public class ArduinoController : MonoBehaviour
             );
     }
     
-    private void UpdateDistanceLidar()
+    protected void UpdateDistanceLidar()
     {
         lidarSensor.ReadSensor();
 
@@ -99,23 +95,23 @@ public class ArduinoController : MonoBehaviour
         }
     }
 
-    private void UpdateDistanceUltrasonic()
+    protected void UpdateDistanceUltrasonic()
     {
         distanceUltrasonic = (int)ultrasonicSensor.GetDistanceCm();
     }
 
-    private void Move(float leftSpeed, float rightSpeed)
+    protected void Move(float leftSpeed, float rightSpeed)
     {
         leftMotor.SetMotorSpeed((int)-leftSpeed);
         rightMotor.SetMotorSpeed((int)rightSpeed);
     }
 
-    private void RequestServoAngle()
+    protected void RequestServoAngle()
     {
         this.angle = i2c.RequestData(2);
         Debug.Log($"Arduino received servo angle: {angle}");
     }
-    private void SendScanMaxAngle(int angle)
+    protected void SendScanMaxAngle(int angle)
     {
         i2c.TransmitData(2, angle);
     }

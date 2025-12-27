@@ -8,7 +8,8 @@ public class RangerSpawner : MonoBehaviour
     
     public enum RangerType
     {
-        RangerModularPrefab
+        RangerModularPrefab,
+        RangerModularAgenticPrefab
     }
     
     public enum LidarType

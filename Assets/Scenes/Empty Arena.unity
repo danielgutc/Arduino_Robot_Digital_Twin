@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b99e6b58f423d0b4cbd736455d21bce4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rangerType: 0
+  rangerType: 1
   differentialDriveType: 1
   meEncodersOnBoardType: 1
   servoType: 1
