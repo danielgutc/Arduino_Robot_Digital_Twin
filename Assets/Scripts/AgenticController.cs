@@ -9,9 +9,9 @@ public class AgenticController : ArduinoController
     private float leftMotorSpeed;
     private float rightMotorSpeed;  
 
-    public int DistanceLidar { get => distanceLidar; set => distanceLidar = value; }
-    public int DistanceUltrasonic { get => distanceUltrasonic; set => distanceUltrasonic = value; }
-    public int Angle { get => angle; set => angle = value; }
+    public int DistanceLidar { get => distanceLidar; }
+    public int DistanceUltrasonic { get => distanceUltrasonic; }
+    public int Angle { get => angle; }
     public float LeftMotorSpeed { get => leftMotorSpeed; set => leftMotorSpeed = value; }
     public float RightMotorSpeed { get => rightMotorSpeed; set => rightMotorSpeed = value; }
     

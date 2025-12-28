@@ -185,8 +185,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 1
-    NumStackedVectorObservations: 1
+    VectorObservationSize: 5
+    NumStackedVectorObservations: 10
     m_ActionSpec:
       m_NumContinuousActions: 2
       BranchSizes: 
@@ -195,7 +195,7 @@ MonoBehaviour:
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
-  m_InferenceDevice: 0
+  m_InferenceDevice: 2
   m_BehaviorType: 0
   m_BehaviorName: Ranger
   TeamId: 0
@@ -218,7 +218,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 10
+  MaxStep: 5000
 --- !u!114 &7066185590385427273
 MonoBehaviour:
   m_ObjectHideFlags: 0

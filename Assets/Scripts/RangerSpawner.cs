@@ -48,7 +48,7 @@ public class RangerSpawner : MonoBehaviour
     public ServoType servoType = ServoType.ServoSimulatedPrefab;
     public LidarType lidarType = LidarType.LidarSimulatedPrefab;
     public MeUltrasonicSensorType meUltrasonicSensorType = MeUltrasonicSensorType.MeUltrasonicSensorSimulatedPrefab;
-    public Vector3 rangerPosition = new(10000, 10001, 10000);
+    public static Vector3 rangerPosition = new(10000, 10001, 10000);
     public TerminalDisplay terminal;
     public TerminalDisplay bleTerminal;
 
