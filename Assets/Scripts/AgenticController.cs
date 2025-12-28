@@ -19,6 +19,7 @@ public class AgenticController : ArduinoController
     void Update()
     {
         UpdateDistanceLidar();
+        RequestServoAngle();
         Move(LeftMotorSpeed, RightMotorSpeed);
 
         terminalDisplay.UpdateDisplay(
