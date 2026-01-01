@@ -66,7 +66,7 @@ public class RangerAgent : Agent
         float forward01 = Mathf.Clamp01(avg / max);
         float straight01 = 1f - Mathf.Clamp01(Mathf.Abs(L - R) / (2f * max));
 
-        // Strongly punishes “turning while moving”
+        // Strongly punishes "turning while moving"
         float speedReward = forward01 * straight01;
         speedReward= speedReward * 0.02f - 0.0002f;
         speedReward = Mathf.Pow(speedReward, 2f);
@@ -84,9 +84,6 @@ public class RangerAgent : Agent
             // Safe distance or unknown distance -> reward based purely on speed
             reward = speedReward;
         }
-
-        // Clamp final reward to the allowed range [-1, 0.1]
-        //reward = Mathf.Clamp(reward, -1f, 0.1f);
 
         SetReward(reward);
 
