@@ -63,15 +63,21 @@ public class RangerAgent : Agent
         float R = rangerController.RightMotorSpeed;
         float max = rangerController.MAX_SPEED;
         float avg = (L + R) * 0.5f;
-        float forward01 = Mathf.Clamp01(avg / max);
-        float straight01 = 1f - Mathf.Clamp01(Mathf.Abs(L - R) / (2f * max));
+        float forward01 = 0f;
+        float straight01 = 0f;
 
-        // Strongly punishes "turning while moving"
-        float speedReward = forward01 * straight01;
-        speedReward= speedReward * 0.02f - 0.0002f;
-        speedReward = Mathf.Pow(speedReward, 2f);
+        forward01 = Mathf.Clamp01(avg / max);
+        // Don't reward move backwards
+        if (L > 0 || R > 0)
+        {
+            straight01 = 1f - Mathf.Clamp01(Mathf.Abs(L - R) / (2f * max));
+        }
 
+        float speedReward = forward01 * straight01 * 0.02f - 0.0002f;
 
+        // Penalize values close to zero but keeping the sign
+        //speedReward = Mathf.Abs(speedReward) * speedReward;
+        
         if (dist != 0 && dist < rangerController.MIN_DISTANCE)
         {
             // t = 0 at halfMinDistanceF, t = 1 at minDistanceF
