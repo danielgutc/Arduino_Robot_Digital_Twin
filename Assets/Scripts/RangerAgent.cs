@@ -70,7 +70,7 @@ public class RangerAgent : Agent
         // Don't reward move backwards
         if (L > 0 || R > 0)
         {
-            straight01 = 1f - Mathf.Clamp01(Mathf.Abs(L - R) / (2f * max));
+            straight01 = 1f - Mathf.Clamp01(Mathf.Abs(L - R) / (4f * max));
         }
 
         float speedReward = forward01 * straight01 * 0.02f - 0.0002f;
