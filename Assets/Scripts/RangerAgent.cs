@@ -67,16 +67,17 @@ public class RangerAgent : Agent
         float straight01 = 0f;
 
         forward01 = Mathf.Clamp01(avg / max);
-        // Don't reward move backwards
-        if (L > 0 || R > 0)
+        straight01 = 1f - Mathf.Clamp01(Mathf.Abs(L - R) / (2f * max));
+        // Penalize move backwards
+        if (L < 0 || R < 0)
         {
-            straight01 = 1f - Mathf.Clamp01(Mathf.Abs(L - R) / (4f * max));
+            straight01 = -straight01;
         }
 
         float speedReward = forward01 * straight01 * 0.02f - 0.0002f;
 
         // Penalize values close to zero but keeping the sign
-        //speedReward = Mathf.Abs(speedReward) * speedReward;
+        speedReward = Mathf.Abs(speedReward) * speedReward;
         
         if (dist != 0 && dist < rangerController.MIN_DISTANCE)
         {
