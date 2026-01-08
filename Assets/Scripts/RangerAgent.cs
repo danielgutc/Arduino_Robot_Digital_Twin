@@ -67,9 +67,11 @@ public class RangerAgent : Agent
         float straight01 = 0f;
 
         forward01 = Mathf.Clamp01(avg / max);
-        straight01 = Mathf.Clamp(Mathf.Abs(L + R) / (2f * max), -1, 1);
+        straight01 = Mathf.Clamp((L + R) / (2f * max), -1, 1);
         
         float speedReward = forward01 * straight01 * 0.02f - 0.0002f;
+
+        
 
         // Penalize values close to zero but keeping the sign
         //speedReward = Mathf.Abs(speedReward) * speedReward;
@@ -86,6 +88,11 @@ public class RangerAgent : Agent
             // Safe distance or unknown distance -> reward based purely on speed
             reward = speedReward;
         }
+
+/*        if (L < -90 && R < -90)
+        {
+            Debug.LogFormat("avg: %s, forward01: %s. straight01: %s, reward: %s", avg, forward01, straight01, reward);
+        }*/
 
         SetReward(reward);
 

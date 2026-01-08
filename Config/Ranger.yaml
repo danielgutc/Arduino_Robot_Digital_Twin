@@ -22,9 +22,9 @@ behaviors:
       curiosity:
         gamma: 0.995
         strength: 0.1
-    keep_checkpoints: 30
+    keep_checkpoints: 20
     checkpoint_interval: 100000
-    max_steps: 3000000
+    max_steps: 2000000
     time_horizon: 2048
     summary_freq: 4096
     
