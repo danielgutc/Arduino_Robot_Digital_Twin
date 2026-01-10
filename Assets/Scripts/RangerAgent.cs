@@ -65,13 +65,14 @@ public class RangerAgent : Agent
         float avg = (L + R) * 0.5f;
         float forward01 = 0f;
         float straight01 = 0f;
+        float speedReward = -1f;
 
-        forward01 = Mathf.Clamp01(avg / max);
-        straight01 = Mathf.Clamp((L + R) / (2f * max), -1, 1);
-        
-        float speedReward = forward01 * straight01 * 0.02f - 0.002f;
-
-        
+        if (L > 0 && R > 0)
+        {
+            forward01 = Mathf.Clamp01(avg / max);
+            straight01 = Mathf.Clamp((L + R) / (2f * max), -1, 1);
+            speedReward = forward01 * straight01 * 0.02f;
+        }
 
         // Penalize values close to zero but keeping the sign
         //speedReward = Mathf.Abs(speedReward) * speedReward;
