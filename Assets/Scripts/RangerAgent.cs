@@ -69,7 +69,7 @@ public class RangerAgent : Agent
         forward01 = Mathf.Clamp01(avg / max);
         straight01 = Mathf.Clamp((L + R) / (2f * max), -1, 1);
         
-        float speedReward = forward01 * straight01 * 0.02f - 0.0002f;
+        float speedReward = forward01 * straight01 * 0.02f - 0.002f;
 
         
 
