@@ -1,0 +1,164 @@
+{
+    "Ranger": {
+        "checkpoints": [
+            {
+                "steps": 99000,
+                "file_path": "results\\0.37\\Ranger\\Ranger-99000.onnx",
+                "reward": -551.5508361816406,
+                "creation_time": 1768064856.84165,
+                "auxillary_file_paths": [
+                    "results\\0.37\\Ranger\\Ranger-99000.pt"
+                ]
+            },
+            {
+                "steps": 199000,
+                "file_path": "results\\0.37\\Ranger\\Ranger-199000.onnx",
+                "reward": -336.9100799560547,
+                "creation_time": 1768065487.8459165,
+                "auxillary_file_paths": [
+                    "results\\0.37\\Ranger\\Ranger-199000.pt"
+                ]
+            },
+            {
+                "steps": 299000,
+                "file_path": "results\\0.37\\Ranger\\Ranger-299000.onnx",
+                "reward": -167.2849365234375,
+                "creation_time": 1768066107.738665,
+                "auxillary_file_paths": [
+                    "results\\0.37\\Ranger\\Ranger-299000.pt"
+                ]
+            },
+            {
+                "steps": 399000,
+                "file_path": "results\\0.37\\Ranger\\Ranger-399000.onnx",
+                "reward": null,
+                "creation_time": 1768066728.8645988,
+                "auxillary_file_paths": [
+                    "results\\0.37\\Ranger\\Ranger-399000.pt"
+                ]
+            },
+            {
+                "steps": 499000,
+                "file_path": "results\\0.37\\Ranger\\Ranger-499000.onnx",
+                "reward": -16.955705374479294,
+                "creation_time": 1768067323.3165333,
+                "auxillary_file_paths": [
+                    "results\\0.37\\Ranger\\Ranger-499000.pt"
+                ]
+            },
+            {
+                "steps": 599000,
+                "file_path": "results\\0.37\\Ranger\\Ranger-599000.onnx",
+                "reward": -4.774184053594416,
+                "creation_time": 1768067921.208491,
+                "auxillary_file_paths": [
+                    "results\\0.37\\Ranger\\Ranger-599000.pt"
+                ]
+            },
+            {
+                "steps": 699000,
+                "file_path": "results\\0.37\\Ranger\\Ranger-699000.onnx",
+                "reward": 2.9769363602002463,
+                "creation_time": 1768068519.270661,
+                "auxillary_file_paths": [
+                    "results\\0.37\\Ranger\\Ranger-699000.pt"
+                ]
+            },
+            {
+                "steps": 799000,
+                "file_path": "results\\0.37\\Ranger\\Ranger-799000.onnx",
+                "reward": 10.01956558227539,
+                "creation_time": 1768069114.8686411,
+                "auxillary_file_paths": [
+                    "results\\0.37\\Ranger\\Ranger-799000.pt"
+                ]
+            },
+            {
+                "steps": 899000,
+                "file_path": "results\\0.37\\Ranger\\Ranger-899000.onnx",
+                "reward": 11.288483661763808,
+                "creation_time": 1768069731.018093,
+                "auxillary_file_paths": [
+                    "results\\0.37\\Ranger\\Ranger-899000.pt"
+                ]
+            },
+            {
+                "steps": 987000,
+                "file_path": "results\\0.37\\Ranger\\Ranger-987000.onnx",
+                "reward": null,
+                "creation_time": 1768070282.8391068,
+                "auxillary_file_paths": [
+                    "results\\0.37\\Ranger\\Ranger-987000.pt"
+                ]
+            },
+            {
+                "steps": 999000,
+                "file_path": "results\\0.37\\Ranger\\Ranger-999000.onnx",
+                "reward": 10.214956323305765,
+                "creation_time": 1768070608.7358198,
+                "auxillary_file_paths": [
+                    "results\\0.37\\Ranger\\Ranger-999000.pt"
+                ]
+            },
+            {
+                "steps": 1099000,
+                "file_path": "results\\0.37\\Ranger\\Ranger-1099000.onnx",
+                "reward": 14.418617521013532,
+                "creation_time": 1768071257.4190614,
+                "auxillary_file_paths": [
+                    "results\\0.37\\Ranger\\Ranger-1099000.pt"
+                ]
+            },
+            {
+                "steps": 1199000,
+                "file_path": "results\\0.37\\Ranger\\Ranger-1199000.onnx",
+                "reward": 14.392577171325684,
+                "creation_time": 1768071909.0538046,
+                "auxillary_file_paths": [
+                    "results\\0.37\\Ranger\\Ranger-1199000.pt"
+                ]
+            },
+            {
+                "steps": 1223000,
+                "file_path": "results\\0.37\\Ranger\\Ranger-1223000.onnx",
+                "reward": 16.389938354492188,
+                "creation_time": 1768072057.1979277,
+                "auxillary_file_paths": [
+                    "results\\0.37\\Ranger\\Ranger-1223000.pt"
+                ]
+            },
+            {
+                "steps": 1223000,
+                "file_path": "results\\0.37\\Ranger\\Ranger-1223000.onnx",
+                "reward": null,
+                "creation_time": 1768074351.255968,
+                "auxillary_file_paths": [
+                    "results\\0.37\\Ranger\\Ranger-1223000.pt"
+                ]
+            },
+            {
+                "steps": 1225000,
+                "file_path": "results\\0.37\\Ranger\\Ranger-1225000.onnx",
+                "reward": 13.824253559112549,
+                "creation_time": 1768074502.9686546,
+                "auxillary_file_paths": [
+                    "results\\0.37\\Ranger\\Ranger-1225000.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1225000,
+            "file_path": "results\\0.37\\Ranger.onnx",
+            "reward": 13.824253559112549,
+            "creation_time": 1768074502.9686546,
+            "auxillary_file_paths": [
+                "results\\0.37\\Ranger\\Ranger-1225000.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}
