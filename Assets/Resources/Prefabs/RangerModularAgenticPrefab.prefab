@@ -149,7 +149,6 @@ GameObject:
   - component: {fileID: 4733518756208285832}
   - component: {fileID: 3008722164541432269}
   - component: {fileID: 7066185590385427273}
-  - component: {fileID: 5663437024067141979}
   m_Layer: 0
   m_Name: Agent
   m_TagString: Untagged
@@ -194,14 +193,14 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 57d9849c8aeab294e81627e380f35fc5, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 4f7e236e7e368354bb075a7008741d1c, type: 3}
   m_InferenceDevice: 2
   m_BehaviorType: 0
   m_BehaviorName: Ranger
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
-  m_DeterministicInference: 0
+  m_DeterministicInference: 1
   m_ObservableAttributeHandling: 0
 --- !u!114 &3008722164541432269
 MonoBehaviour:
@@ -234,19 +233,6 @@ MonoBehaviour:
   DecisionPeriod: 1
   DecisionStep: 0
   TakeActionsBetweenDecisions: 1
---- !u!114 &5663437024067141979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1884990463010213651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2bdd93a0c2c29c48a15db189e95d299, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debugCommandLineOverride: 
 --- !u!1 &2596304134535357442
 GameObject:
   m_ObjectHideFlags: 0

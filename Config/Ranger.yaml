@@ -34,7 +34,7 @@ behaviors:
           vis_encode_type: simple
           memory: null
           goal_conditioning_type: hyper
-          deterministic: false
+          deterministic: true
       curiosity:
         gamma: 0.995
         strength: 0.1
@@ -57,20 +57,9 @@ behaviors:
     threaded: false
     self_play: null
     behavioral_cloning: null
-env_settings:
-  env_path: null
-  env_args: null
-  base_port: 5005
-  num_envs: 1
-  num_areas: 1
-  timeout_wait: 60
-  seed: -1
-  max_lifetime_restarts: 10
-  restarts_rate_limit_n: 1
-  restarts_rate_limit_period_s: 60
 engine_settings:
-  width: 84
-  height: 84
+  width: 640
+  height: 640
   quality_level: 5
   time_scale: 20
   target_frame_rate: -1
@@ -88,5 +77,5 @@ checkpoint_settings:
   inference: false
   results_dir: results
 torch_settings:
-  device: null
+  device: cuda
 debug: false
