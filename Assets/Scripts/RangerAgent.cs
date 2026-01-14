@@ -8,6 +8,7 @@ using UnityEngine;
 public class RangerAgent : Agent
 {
     private AgenticController rangerController;
+    private bool collide = false;
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
@@ -32,6 +33,9 @@ public class RangerAgent : Agent
     public override void Initialize()
     {
         rangerController = GetComponentInParent<AgenticController>();
+        CollisionSensor collisionSensor = GetComponentInParent<CollisionSensor>();
+        collisionSensor.OnCollisionStateChanged += handleCollision;
+
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -51,8 +55,7 @@ public class RangerAgent : Agent
         float halfMinDistance = rangerController.MIN_DISTANCE / 2;
 
         int dist = rangerController.DistanceLidar;
-        // Immediate failure condition: too close -> maximal negative reward + end episode
-        if (dist != 0 && dist < rangerController.MIN_DISTANCE / 2)
+        if ((dist != 0 && dist < rangerController.MIN_DISTANCE / 2) || collide)
         {
             SetReward(-1f);
             EndEpisode();
@@ -74,26 +77,16 @@ public class RangerAgent : Agent
             speedReward = forward01 * straight01 * 0.02f;
         }
 
-        // Penalize values close to zero but keeping the sign
-        //speedReward = Mathf.Abs(speedReward) * speedReward;
-        
-        if (dist != 0 && dist < rangerController.MIN_DISTANCE)
+        if (dist != 0 && dist < rangerController.MIN_DISTANCE * 2)
         {
-            // t = 0 at halfMinDistanceF, t = 1 at minDistanceF
-            float t = Mathf.Clamp01((dist - halfMinDistance) / (rangerController.MIN_DISTANCE - halfMinDistance));
-            // Interpolate from -1 (at halfMinDistanceF) to speedReward (at minDistanceF)
-            reward = Mathf.Lerp(-1f, speedReward, t);
+            float rotationDistance = dist - rangerController.MIN_DISTANCE;
+            reward = Mathf.InverseLerp(0, rangerController.MIN_DISTANCE, rotationDistance) * -500f;
         }
         else
         {
             // Safe distance or unknown distance -> reward based purely on speed
             reward = speedReward;
         }
-
-/*        if (L < -90 && R < -90)
-        {
-            Debug.LogFormat("avg: %s, forward01: %s. straight01: %s, reward: %s", avg, forward01, straight01, reward);
-        }*/
 
         SetReward(reward);
 
@@ -103,5 +96,14 @@ public class RangerAgent : Agent
     public override void OnEpisodeBegin()
     {
         rangerController.transform.position = RangerSpawner.rangerPosition;
+        collide = false;
+    }
+
+    private void handleCollision(bool isColliding)
+    {
+        if (isColliding)
+        {
+            collide = true;
+        }
     }
 }

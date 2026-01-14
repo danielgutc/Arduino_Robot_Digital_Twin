@@ -30,4 +30,9 @@ public class AgenticController : ArduinoController
             $"RightMotorSpeed: {RightMotorSpeed}"
             );
     }
+
+    public void SetLidarAngle(int angle)
+    {
+        this.angle = angle;
+    }
 }
