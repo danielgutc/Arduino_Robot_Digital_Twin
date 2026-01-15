@@ -49,9 +49,9 @@ behaviors:
         learning_rate: 0.0003
         encoding_size: null
     init_path: null
-    keep_checkpoints: 20
+    keep_checkpoints: 100
     even_checkpoints: false
-    max_steps: 3000000
+    max_steps: 200000
     time_horizon: 2048
     summary_freq: 4096
     threaded: false

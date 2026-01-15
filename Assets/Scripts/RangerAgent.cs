@@ -41,12 +41,21 @@ public class RangerAgent : Agent
     public override void OnActionReceived(ActionBuffers actions)
     {
         var continuousActions = actions.ContinuousActions;
+        var discreteActions = actions.DiscreteActions;
 
         // Scale actions to motor speeds (do this first because reward uses resulting left/right speeds).
         float leftMotor = continuousActions[0] * rangerController.MAX_SPEED;
         float rightMotor = continuousActions[1] * rangerController.MAX_SPEED;
         rangerController.LeftMotorSpeed = leftMotor;
         rangerController.RightMotorSpeed = rightMotor;
+        if (discreteActions[0] == 1)
+        {
+            rangerController.SetLidarAngle(rangerController.FORWARD_SCAN_ANGLE);
+        }
+        else if (discreteActions[0] == 2)
+        {
+            rangerController.SetLidarAngle(rangerController.WIDE_SCAN_ANGLE);
+        }
         // -
 
         #region -- Calculate reward -- 
