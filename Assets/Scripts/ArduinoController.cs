@@ -113,7 +113,8 @@ public class ArduinoController : MonoBehaviour
     }
     protected void SendScanMaxAngle(int angle)
     {
-        i2c.TransmitData(2, angle);
+        if (i2c != null)
+            i2c.TransmitData(2, angle);
     }
 
     private void ObstacleDetection()
