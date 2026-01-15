@@ -48,11 +48,11 @@ public class RangerAgent : Agent
         float rightMotor = continuousActions[1] * rangerController.MAX_SPEED;
         rangerController.LeftMotorSpeed = leftMotor;
         rangerController.RightMotorSpeed = rightMotor;
-        if (discreteActions[0] == 1)
+        if (discreteActions[0] == 0)
         {
             rangerController.SetLidarAngle(rangerController.FORWARD_SCAN_ANGLE);
         }
-        else if (discreteActions[0] == 2)
+        else if (discreteActions[0] == 1)
         {
             rangerController.SetLidarAngle(rangerController.WIDE_SCAN_ANGLE);
         }

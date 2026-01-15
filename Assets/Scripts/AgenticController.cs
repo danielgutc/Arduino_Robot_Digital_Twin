@@ -33,6 +33,6 @@ public class AgenticController : ArduinoController
 
     public void SetLidarAngle(int angle)
     {
-        this.angle = angle;
+        SendScanMaxAngle(angle);
     }
 }
