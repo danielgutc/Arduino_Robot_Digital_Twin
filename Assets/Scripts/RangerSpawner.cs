@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -48,24 +49,28 @@ public class RangerSpawner : MonoBehaviour
     public ServoType servoType = ServoType.ServoSimulatedPrefab;
     public LidarType lidarType = LidarType.LidarSimulatedPrefab;
     public MeUltrasonicSensorType meUltrasonicSensorType = MeUltrasonicSensorType.MeUltrasonicSensorSimulatedPrefab;
-    public static Vector3 rangerPosition = new(10000, 10001, 10000);
+    public List<Vector3> rangerPosition = new();
     public TerminalDisplay terminal;
     public TerminalDisplay bleTerminal;
 
     void Start()
     {
-        RangerBuilder rangerBuilder = new();
-        GameObject ranger = rangerBuilder
-            .NewRanger(prefabsPath + rangerType.ToString())
-            .SetDiffentialDrive(prefabsPath + differentialDriveType.ToString())
-            .SetMeEncodersOnBoard(prefabsPath + meEncodersOnBoardType.ToString())
-            .SetServo(prefabsPath + servoType.ToString())
-            .SetLidar(prefabsPath + lidarType.ToString())
-            .SetUltrasonicSensor(prefabsPath + meUltrasonicSensorType.ToString())
-            .SetTerminal(terminal)
-            .SetBleTerminal(bleTerminal)
-            .Build();
-
-        ranger.transform.position = rangerPosition;
+        for (int i = 0; i < rangerPosition.Count; i++)
+        {
+            RangerBuilder rangerBuilder = new();
+            GameObject ranger = rangerBuilder
+                .NewRanger(prefabsPath + rangerType.ToString(), $"Ranger_{i}")
+                .SetDiffentialDrive(prefabsPath + differentialDriveType.ToString())
+                .SetMeEncodersOnBoard(prefabsPath + meEncodersOnBoardType.ToString())
+                .SetServo(prefabsPath + servoType.ToString())
+                .SetLidar(prefabsPath + lidarType.ToString())
+                .SetUltrasonicSensor(prefabsPath + meUltrasonicSensorType.ToString())
+                .SetTerminal(terminal)
+                .SetBleTerminal(bleTerminal)
+                .Build();
+;
+            ranger.transform.position = rangerPosition[i];
+        }
+        
     }
 }

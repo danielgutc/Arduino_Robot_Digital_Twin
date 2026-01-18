@@ -13,11 +13,11 @@ public class RangerBuilder
 {
     private GameObject ranger;
 
-    public RangerBuilder NewRanger(string rangerPrefabPath)
+    public RangerBuilder NewRanger(string rangerPrefabPath, string name)
     {
         GameObject rangerPrefab = Resources.Load<GameObject>(rangerPrefabPath);
         ranger = GameObject.Instantiate(rangerPrefab);
-        ranger.name = "Ranger";
+        ranger.name = name;
 
         return this;
     }

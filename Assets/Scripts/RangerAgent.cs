@@ -35,7 +35,6 @@ public class RangerAgent : Agent
         rangerController = GetComponentInParent<AgenticController>();
         CollisionSensor collisionSensor = GetComponentInParent<CollisionSensor>();
         collisionSensor.OnCollisionStateChanged += handleCollision;
-
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -60,15 +59,15 @@ public class RangerAgent : Agent
 
         #region -- Calculate reward -- 
 
-        // Early checks and local copies to reduce property access overhead
-        float halfMinDistance = rangerController.MIN_DISTANCE / 2;
-
+        // End episode on collision or too close to an obstacle
         int dist = rangerController.DistanceLidar;
         if ((dist != 0 && dist < rangerController.MIN_DISTANCE / 2) || collide)
         {
             SetReward(-1f);
             EndEpisode();
         }
+        // --
+
 
         float reward;
         float L = rangerController.LeftMotorSpeed;
@@ -79,6 +78,7 @@ public class RangerAgent : Agent
         float straight01 = 0f;
         float speedReward = -1f;
 
+        // Reward is based on speed and going straight forward
         if (L > 0 && R > 0)
         {
             forward01 = Mathf.Clamp01(avg / max);
@@ -86,10 +86,11 @@ public class RangerAgent : Agent
             speedReward = forward01 * straight01 * 0.02f;
         }
 
+        // Too close to an obstacle -> negative reward
         if (dist != 0 && dist < rangerController.MIN_DISTANCE * 2)
         {
             float rotationDistance = dist - rangerController.MIN_DISTANCE;
-            reward = Mathf.InverseLerp(0, rangerController.MIN_DISTANCE, rotationDistance) * -500f;
+            reward = Mathf.InverseLerp(0, rangerController.MIN_DISTANCE, rotationDistance) * -0.02f;
         }
         else
         {
@@ -104,7 +105,7 @@ public class RangerAgent : Agent
 
     public override void OnEpisodeBegin()
     {
-        rangerController.transform.position = RangerSpawner.rangerPosition;
+        transform.parent.transform.SetPositionAndRotation(FindFirstObjectByType<RangerSpawner>().rangerPosition[int.Parse(transform.parent.name.Split('_')[1])], Quaternion.Euler(0, 0, 0));
         collide = false;
     }
 
