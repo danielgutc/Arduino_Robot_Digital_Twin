@@ -81,15 +81,8 @@ public class RangerAgent : Agent
         // Too close to an obstacle -> negative reward
         if (dist != 0 && dist < rangerController.MIN_DISTANCE * 2)
         {
-            if (L < 0 && R < 0)
-            {
-                reward = -0.02f;
-            }
-            else 
-            { 
-                float rotationDistance = dist - rangerController.MIN_DISTANCE;
-                reward = Mathf.InverseLerp(rangerController.MIN_DISTANCE / 2, rangerController.MIN_DISTANCE * 2, rotationDistance) * 0.02f;
-            }
+            float rotationDistance = dist - rangerController.MIN_DISTANCE;
+            reward = Mathf.InverseLerp(rangerController.MIN_DISTANCE / 2, rangerController.MIN_DISTANCE * 2, rotationDistance) * 0.02f;   
         }
         else
         {
