@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd48bb8df17af5047b0c999b5be059db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SERVO_SPEED: 1
+  SERVO_SPEED: 0
   SERVO_SPEED_MULT: 0.5
 --- !u!114 &1698011919753004641
 MonoBehaviour:

@@ -47,14 +47,14 @@ public class RangerAgent : Agent
         float rightMotor = continuousActions[1] * rangerController.MAX_SPEED;
         rangerController.LeftMotorSpeed = leftMotor;
         rangerController.RightMotorSpeed = rightMotor;
-        if (discreteActions[0] == 0)
+/*        if (discreteActions[0] == 0)
         {
             rangerController.SetLidarAngle(rangerController.FORWARD_SCAN_ANGLE);
         }
         else if (discreteActions[0] == 1)
         {
             rangerController.SetLidarAngle(rangerController.WIDE_SCAN_ANGLE);
-        }
+        }*/
         // -
 
         #region -- Calculate reward -- 
@@ -81,8 +81,15 @@ public class RangerAgent : Agent
         // Too close to an obstacle -> negative reward
         if (dist != 0 && dist < rangerController.MIN_DISTANCE * 2)
         {
-            float rotationDistance = dist - rangerController.MIN_DISTANCE;
-            reward = Mathf.InverseLerp(rangerController.MIN_DISTANCE / 2, rangerController.MIN_DISTANCE * 2, rotationDistance) * 0.02f;
+            if (L < 0 && R < 0)
+            {
+                reward = -0.02f;
+            }
+            else 
+            { 
+                float rotationDistance = dist - rangerController.MIN_DISTANCE;
+                reward = Mathf.InverseLerp(rangerController.MIN_DISTANCE / 2, rangerController.MIN_DISTANCE * 2, rotationDistance) * 0.02f;
+            }
         }
         else
         {
