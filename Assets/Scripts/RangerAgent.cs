@@ -78,23 +78,21 @@ public class RangerAgent : Agent
         float straight01 = 0f;
         float speedReward = -1f;
 
-        // Reward is based on speed and going straight forward
-        if (L > 0 && R > 0)
-        {
-            forward01 = Mathf.Clamp01(avg / max);
-            straight01 = Mathf.Clamp((L + R) / (2f * max), -1, 1);
-            speedReward = forward01 * straight01 * 0.02f;
-        }
-
         // Too close to an obstacle -> negative reward
         if (dist != 0 && dist < rangerController.MIN_DISTANCE * 2)
         {
             float rotationDistance = dist - rangerController.MIN_DISTANCE;
-            reward = Mathf.InverseLerp(0, rangerController.MIN_DISTANCE, rotationDistance) * -0.02f;
+            reward = Mathf.InverseLerp(rangerController.MIN_DISTANCE / 2, rangerController.MIN_DISTANCE * 2, rotationDistance) * 0.02f;
         }
         else
         {
-            // Safe distance or unknown distance -> reward based purely on speed
+            // Reward is based on speed and going straight forward
+            if (L > 0 && R > 0)
+            {
+                forward01 = Mathf.Clamp01(avg / max);
+                straight01 = Mathf.Clamp((L + R) / (2f * max), -1, 1);
+                speedReward = forward01 * straight01 * 0.02f;
+            }
             reward = speedReward;
         }
 
