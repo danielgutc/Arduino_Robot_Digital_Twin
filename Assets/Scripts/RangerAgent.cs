@@ -82,7 +82,7 @@ public class RangerAgent : Agent
         if (dist != 0 && dist < rangerController.MIN_DISTANCE * 2)
         {
             float rotationDistance = dist - rangerController.MIN_DISTANCE;
-            reward = Mathf.InverseLerp(rangerController.MIN_DISTANCE / 2, rangerController.MIN_DISTANCE * 2, rotationDistance) * 0.02f;   
+            reward = Mathf.InverseLerp(rangerController.MIN_DISTANCE / 2, rangerController.MIN_DISTANCE * 2, rotationDistance) * 0.02f - 0.0002f;   
         }
         else
         {
