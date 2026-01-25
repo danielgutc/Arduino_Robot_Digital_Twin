@@ -194,7 +194,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 672d45f97d22f4743b871ca2948bf98b, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: cf95da7e6d3bfd949bdc834d0702c9e3, type: 3}
   m_InferenceDevice: 2
   m_BehaviorType: 0
   m_BehaviorName: Ranger
