@@ -61,3 +61,7 @@ Assets/StreamingAssets*
 # Ignore Rider / JetBrains specific files
 .idea/
 *.iml
+
+# Ignore models
+/Config/results
+/Assets/Resources/Models
