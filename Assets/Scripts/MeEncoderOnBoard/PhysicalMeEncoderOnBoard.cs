@@ -23,7 +23,7 @@ namespace MeEncoderOnBoard
             this.transform.Rotate(Vector3.left * currentSpeed);
         }
 
-        public void SetMotorSpeed(int speed)
+        public void SetCurrentSpeed(float speed)
         {
             // Not implemented yet. Target is to send the speed to the physical motor via Bluetooth.
         }

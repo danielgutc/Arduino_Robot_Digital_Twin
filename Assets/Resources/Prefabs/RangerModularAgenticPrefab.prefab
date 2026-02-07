@@ -149,7 +149,6 @@ GameObject:
   - component: {fileID: 4733518756208285832}
   - component: {fileID: 3008722164541432269}
   - component: {fileID: 7066185590385427273}
-  - component: {fileID: 6446131243570008687}
   m_Layer: 0
   m_Name: Agent
   m_TagString: Untagged
@@ -234,22 +233,6 @@ MonoBehaviour:
   DecisionPeriod: 5
   DecisionStep: 0
   TakeActionsBetweenDecisions: 1
---- !u!114 &6446131243570008687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1884990463010213651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88b6042bc9a5d4aa58d931eae49442e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
 --- !u!1 &2596304134535357442
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,7 +243,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5941617683424965973}
   - component: {fileID: 631412988769100906}
-  - component: {fileID: -2362492906701892933}
+  - component: {fileID: 7509038495708494041}
   - component: {fileID: -4188776242602133566}
   - component: {fileID: 1698011919753004641}
   - component: {fileID: 8621428818774547767}
@@ -318,7 +301,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-2362492906701892933
+--- !u!114 &7509038495708494041
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -327,17 +310,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 2596304134535357442}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57f4841553fbe8e4da291e00f68efb7f, type: 3}
+  m_Script: {fileID: 11500000, guid: 5924ebd32feae6d4ca5d249c054f5854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   terminalDisplay: {fileID: 0}
-  FORWARD_SCAN_ANGLE: 45
-  MIN_DISTANCE: 5
-  MIN_DISTANCE_MULT: 1.5
-  MAX_SPEED: 100
+  agentControlled: 0
+  FORWARD_SCAN_ANGLE: 60
+  MIN_DISTANCE: 10
+  MIN_DISTANCE_MULT: 1
+  MAX_SPEED: 18
   WIDE_SCAN_ANGLE: 180
   WAIT_SERVO_POSITION: 1.5
-  TURN_SPEED_MULT: 0.5
+  TURN_SPEED_MULT: 1.5
 --- !u!114 &-4188776242602133566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,7 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd48bb8df17af5047b0c999b5be059db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SERVO_SPEED: 0
+  SERVO_SPEED: 1
   SERVO_SPEED_MULT: 0.5
 --- !u!114 &1698011919753004641
 MonoBehaviour:
@@ -387,7 +371,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2596304134535357442}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cad13dc94e4c7194b8cae7e3b40edced, type: 3}
   m_Name: 

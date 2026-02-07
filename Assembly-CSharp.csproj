@@ -76,7 +76,6 @@
     <Compile Include="Assets\Scripts\ArduinoController.cs" />
     <Compile Include="Assets\Scripts\I2CBus.cs" />
     <Compile Include="Assets\Scripts\DifferentialDrive\IDifferentialDrive.cs" />
-    <Compile Include="Assets\Scripts\AgenticController.cs" />
     <Compile Include="Assets\Scripts\MeUltrasonicSensor\SimulatedMeUltrasonicSensor.cs" />
     <Compile Include="Assets\Scripts\MeUltrasonicSensor\IMeUltrasonicSensor.cs" />
     <Compile Include="Assets\Scripts\DifferentialDrive\PhysicsDifferentialDrive.cs" />

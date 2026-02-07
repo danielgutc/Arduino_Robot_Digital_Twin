@@ -14,6 +14,8 @@ public class ArduinoController : MonoBehaviour
     public ITFminiS lidarSensor;
     public TerminalDisplay terminalDisplay;
 
+    public bool agentControlled = false;
+
     public int FORWARD_SCAN_ANGLE = 45;
     public int MIN_DISTANCE = 5;
     public float MIN_DISTANCE_MULT = 1.5f;
@@ -22,6 +24,10 @@ public class ArduinoController : MonoBehaviour
     public float WAIT_SERVO_POSITION = 1.5f;
     public float TURN_SPEED_MULT = 0.5f;
 
+    public float Angle { get => angle; }
+    public float LeftMotorSpeed { get => leftMotor.GetCurrentSpeed(); }
+    public float RightMotorSpeed { get => rightMotor.GetCurrentSpeed(); }
+    public int DistanceLidar { get => distanceLidar; }
     protected int distanceLidar;
     protected int distanceUltrasonic;
     private int state = 0; // 0 - stopped; 1 - forward; 2 - backguard; 3 - rotating left; 4 - rotating right
@@ -46,30 +52,38 @@ public class ArduinoController : MonoBehaviour
 
     void Update()
     {
-        // Simulate Wait time in Arduino
-        if (waitEndTime != -1)
-        {
-            if (Time.time < waitEndTime)
-            {
-                return;
-            }
-            else
-            {
-                waitEndTime = -1;
-            }    
-        }
-
         RequestServoAngle();
         UpdateDistanceUltrasonic();
         UpdateDistanceLidar();
         ObstacleDetection();
-        Move();
 
+        if (!agentControlled)
+        {
+            // Simulate Wait time in Arduino
+            if (waitEndTime != -1)
+            {
+                if (Time.time < waitEndTime)
+                {
+                    return;
+                }
+                else
+                {
+                    waitEndTime = -1;
+                }
+            }
+            Move();
+        }
+        
+        DisplayTelemetry();
+    }
+
+    protected void DisplayTelemetry()
+    {
         terminalDisplay.UpdateDisplay(
             $"State: {state} \n" +
-            $"Lidar: {distanceLidar} \n" +
+            $"Lidar: {DistanceLidar} \n" +
             $"Ultrasonic: {distanceUltrasonic} \n" +
-            $"Angle: {angle} \n" +
+            $"Angle: {Angle} \n" +
             $"ObstacleDetected: {obstacleDetected} \n" +
             $"CurrentScanMaxDistance: {currentScanMaxDistance} \n" +
             $"CurrentScanMaxDistanceAngle: {currentScanMaxDistanceAngle} \n" +
@@ -79,7 +93,7 @@ public class ArduinoController : MonoBehaviour
             $"RightMotorSpeed: {rightMotor.GetCurrentSpeed()}"
             );
     }
-    
+
     protected void UpdateDistanceLidar()
     {
         lidarSensor.ReadSensor();
@@ -100,10 +114,10 @@ public class ArduinoController : MonoBehaviour
         distanceUltrasonic = (int)ultrasonicSensor.GetDistanceCm();
     }
 
-    protected void Move(float leftSpeed, float rightSpeed)
+    public void Move(float leftSpeed, float rightSpeed)
     {
-        leftMotor.SetMotorSpeed((int)-leftSpeed);
-        rightMotor.SetMotorSpeed((int)rightSpeed);
+        leftMotor.SetCurrentSpeed(-leftSpeed);
+        rightMotor.SetCurrentSpeed(rightSpeed);
     }
 
     protected void RequestServoAngle()

@@ -16,7 +16,6 @@ namespace DiferentialDrive
         public GameObject replacementPrefab;
         public float speedMultiplier = 0.1f;
         public float rotationMultiplier = 1f;
-        //public Vector3 initPosition = new(-2176, 146, 13329);
 
         private IMeEncoderOnBoard leftMotor;
         private IMeEncoderOnBoard rightMotor;
@@ -44,32 +43,5 @@ namespace DiferentialDrive
             rangerBody.MovePosition(rangerBody.position + movement);
             rangerBody.MoveRotation(rangerBody.rotation * Quaternion.Euler(0, rotation * Time.fixedDeltaTime, 0));
         }
-
-        /*
-        void OnCollisionEnter(Collision collision)
-        {
-            Debug.Log($"Collision detected with: {collision.gameObject.name}");
-
-            if (collision.gameObject.CompareTag("Obstacle"))
-            {
-                if (replacementPrefab != null)
-                {
-                    GameObject newInstance = Instantiate(replacementPrefab, initPosition, transform.rotation);
-                    ArduinoController arduinoController = newInstance.GetComponent<ArduinoController>();
-                    if (arduinoController != null)
-                    {
-                        arduinoController.terminalDisplay = FindFirstObjectByType<ArduinoController>().terminalDisplay;
-                    }
-
-                    DriveController rangerDriveController = newInstance.GetComponent<DriveController>();
-                    if (rangerDriveController != null)
-                    {
-                        rangerDriveController.replacementPrefab = replacementPrefab;
-                    }
-                }
-                Destroy(gameObject);
-            }
-        }*/
-
     }
 }

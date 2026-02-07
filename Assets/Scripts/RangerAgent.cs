@@ -1,25 +1,31 @@
 ﻿using System;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
+using Unity.MLAgents.Policies;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Sensors.Reflection;
 using UnityEngine;
 
 public class RangerAgent : Agent
 {
-    private AgenticController rangerController;
+    //private AgenticController rangerController;
+    private ArduinoController rangerController;
+    private bool heuristicMode;
     private bool collide = false;
 
+    /**
+     * 
+     * Heuristic can support 2 cases:
+     *  1. Use ArduinoController simulated logic and telemerty 
+     *  2. Use ArduinoController as proxy of physical telemetry beings sent by the physical Ranger
+     *
+     */
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-        // Heuristic should write into the ActionBuffers when used by the agent.
-        // But keep the original behavior of setting the controller motors for manual testing.
-        rangerController.LeftMotorSpeed = rangerController.MAX_SPEED;
-        rangerController.RightMotorSpeed = rangerController.MAX_SPEED;
-
         var continuousOut = actionsOut.ContinuousActions;
-        continuousOut[0] = 1f;
-        continuousOut[1] = 1f;
+
+        continuousOut[0] = rangerController.LeftMotorSpeed / rangerController.MAX_SPEED;
+        continuousOut[1] = rangerController.RightMotorSpeed/ rangerController.MAX_SPEED;
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -32,9 +38,17 @@ public class RangerAgent : Agent
 
     public override void Initialize()
     {
-        rangerController = GetComponentInParent<AgenticController>();
+
+        rangerController = GetComponentInParent<ArduinoController>();
         CollisionSensor collisionSensor = GetComponentInParent<CollisionSensor>();
         collisionSensor.OnCollisionStateChanged += handleCollision;
+        heuristicMode = GetComponent<BehaviorParameters>().IsInHeuristicMode();
+
+        //Arduino controller is flagged as being agent controlled unless the agent is in heuristic mode
+        if (!heuristicMode)
+        {
+            rangerController.agentControlled = true;
+        }
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -43,19 +57,15 @@ public class RangerAgent : Agent
         var discreteActions = actions.DiscreteActions;
 
         // Scale actions to motor speeds (do this first because reward uses resulting left/right speeds).
-        float leftMotor = continuousActions[0] * rangerController.MAX_SPEED;
-        float rightMotor = continuousActions[1] * rangerController.MAX_SPEED;
-        rangerController.LeftMotorSpeed = leftMotor;
-        rangerController.RightMotorSpeed = rightMotor;
-/*        if (discreteActions[0] == 0)
-        {
-            rangerController.SetLidarAngle(rangerController.FORWARD_SCAN_ANGLE);
+        float leftMotorSpeed = continuousActions[0] * rangerController.MAX_SPEED;
+        float rightMotorSpeed = continuousActions[1] * rangerController.MAX_SPEED;
+
+        // Do not control the ranger in heuristic mode
+        if (!heuristicMode)
+        {   
+            // Hack: send negative left speed to avoid changes in the arduino controller code
+            rangerController.Move(-leftMotorSpeed, rightMotorSpeed);
         }
-        else if (discreteActions[0] == 1)
-        {
-            rangerController.SetLidarAngle(rangerController.WIDE_SCAN_ANGLE);
-        }*/
-        // -
 
         #region -- Calculate reward -- 
 
@@ -74,7 +84,6 @@ public class RangerAgent : Agent
         float R = rangerController.RightMotorSpeed;
         float max = rangerController.MAX_SPEED;
         
-        // Too close to an obstacle -> negative reward
         if (dist != 0 && dist < rangerController.MIN_DISTANCE * 2)
         {
             float rotationReward = -1f;
