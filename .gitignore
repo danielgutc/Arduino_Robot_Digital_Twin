@@ -62,6 +62,9 @@ Assets/StreamingAssets*
 .idea/
 *.iml
 
+# Ignore ML-Agents specific files
+Unity.ML*.csproj
+
 # Ignore models
 /Config/results
 /Assets/Resources/Models
