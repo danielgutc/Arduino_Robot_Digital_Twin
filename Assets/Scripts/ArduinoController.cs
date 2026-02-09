@@ -140,7 +140,7 @@ public class ArduinoController : MonoBehaviour
                 maxDistanceAngle = currentScanMaxDistanceAngle;
                 obstacleDetected = currentScanMinDistance < minDistance ? true : false;
             }
-            
+
             currentScanDirection = -1;
             currentScanMaxDistanceAngle = -1;
             currentScanMaxDistance = -1;

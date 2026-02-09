@@ -195,7 +195,7 @@ MonoBehaviour:
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 5022602860645237092, guid: 4bbee7157f5c3cc4aadec199112f5e1f, type: 3}
   m_InferenceDevice: 2
-  m_BehaviorType: 0
+  m_BehaviorType: 1
   m_BehaviorName: Ranger
   TeamId: 0
   m_UseChildSensors: 1
@@ -319,7 +319,7 @@ MonoBehaviour:
   MIN_DISTANCE: 10
   MIN_DISTANCE_MULT: 1
   MAX_SPEED: 18
-  WIDE_SCAN_ANGLE: 180
+  WIDE_SCAN_ANGLE: 60
   WAIT_SERVO_POSITION: 1.5
   TURN_SPEED_MULT: 1.5
 --- !u!114 &-4188776242602133566
@@ -371,7 +371,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2596304134535357442}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cad13dc94e4c7194b8cae7e3b40edced, type: 3}
   m_Name: 

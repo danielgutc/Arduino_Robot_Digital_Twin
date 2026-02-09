@@ -279,6 +279,9 @@ MonoBehaviour:
   meUltrasonicSensorType: 1
   rangerPosition:
   - {x: 9975, y: 10001, z: 10025}
+  - {x: 9975, y: 10001, z: 9975}
+  - {x: 10025, y: 10001, z: 9975}
+  - {x: 10025, y: 10001, z: 10025}
   terminal: {fileID: 535944821}
   bleTerminal: {fileID: 889943090}
 --- !u!1 &330585543
@@ -600,7 +603,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &473088646
 Transform:
   m_ObjectHideFlags: 0
@@ -887,7 +890,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &695989426
 Transform:
   m_ObjectHideFlags: 0
@@ -1331,7 +1334,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1274190024
 Transform:
   m_ObjectHideFlags: 0
@@ -1573,7 +1576,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1324762996
 Transform:
   m_ObjectHideFlags: 0
@@ -1781,7 +1784,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1641483661
 Transform:
   m_ObjectHideFlags: 0

@@ -17,8 +17,6 @@ namespace Servo
             if (this.transform != null)
             {
                 isAttached = true;
-                Write(90); // Default to center position
-                currentAngle = 90f; // Initialize current angle
             }
         }
 
