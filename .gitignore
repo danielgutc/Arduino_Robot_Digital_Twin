@@ -64,6 +64,7 @@ Assets/StreamingAssets*
 
 # Ignore ML-Agents specific files
 Unity.ML*.csproj
+Assets/ML-Agents/*
 
 # Ignore models
 /Config/results
