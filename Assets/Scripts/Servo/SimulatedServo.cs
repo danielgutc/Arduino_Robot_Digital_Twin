@@ -20,12 +20,12 @@ namespace Servo
             }
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (isAttached)
             {
                 // Rotate smoothly towards the target angle within the rotation speed limit
-                float step = rotationSpeed * Time.deltaTime;
+                float step = rotationSpeed * Time.fixedDeltaTime;
                 currentAngle = Mathf.MoveTowards(currentAngle, targetAngle, step);
                 this.transform.localRotation = Quaternion.Euler(0, currentAngle, 0); // Rotates around the Y-axis
             }

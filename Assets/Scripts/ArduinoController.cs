@@ -42,16 +42,23 @@ public class ArduinoController : MonoBehaviour
     private int maxDistanceAngle = -1;
     private bool waitNextScan = false;
     private float waitEndTime = -1;
+    private bool firstCyle = true;
 
     void Start()
     {
         i2c = FindFirstObjectByType<I2CBus>();
         i2c.RegisterDevice(1, null, null);
-        SendScanMaxAngle(FORWARD_SCAN_ANGLE);
     }
 
     void Update()
     {
+        // TODO: remove this ugly solution for the first cycle where the servo angle is not received yet. Is there any AfterStar() in Unity?
+        if (firstCyle)
+        {
+            SendScanMaxAngle(FORWARD_SCAN_ANGLE);
+            firstCyle = false;
+        }
+
         RequestServoAngle();
         UpdateDistanceUltrasonic();
         UpdateDistanceLidar();

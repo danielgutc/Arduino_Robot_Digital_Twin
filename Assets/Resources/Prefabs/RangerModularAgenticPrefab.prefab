@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 4733518756208285832}
   - component: {fileID: 3008722164541432269}
   - component: {fileID: 7066185590385427273}
+  - component: {fileID: 1824993490725523305}
   m_Layer: 0
   m_Name: Agent
   m_TagString: Untagged
@@ -193,9 +194,9 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 4bbee7157f5c3cc4aadec199112f5e1f, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 53357a94fee03ef43a103d41b26e7104, type: 3}
   m_InferenceDevice: 2
-  m_BehaviorType: 1
+  m_BehaviorType: 0
   m_BehaviorName: Ranger
   TeamId: 0
   m_UseChildSensors: 1
@@ -233,6 +234,22 @@ MonoBehaviour:
   DecisionPeriod: 5
   DecisionStep: 0
   TakeActionsBetweenDecisions: 1
+--- !u!114 &1824993490725523305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1884990463010213651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2902496c0120472b90269f94a0aec7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Record: 0
+  NumStepsToRecord: 0
+  DemonstrationName: Ranger_2
+  DemonstrationDirectory: Assets/Resources/Demonstrations
 --- !u!1 &2596304134535357442
 GameObject:
   m_ObjectHideFlags: 0
