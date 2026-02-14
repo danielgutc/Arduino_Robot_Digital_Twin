@@ -4,7 +4,7 @@ Unity-based virtual twin for a Makeblock Ranger-style differential-drive robot, 
 
 ## What This Project Does
 - Simulates a Ranger robot in Unity with modular sensors/actuators.
-- Accelerate the arduino code development cycle providing a similar code structure and language (c vs c#). 
+- Accelerates the arduino code development cycle providing a similar code structure and language (c vs c#). 
 - Supports hybrid setups where Unity reads telemetry from a physical robot over BLE.
 - Provides an `ArduinoController` behavior loop and an ML-Agents `RangerAgent` for learning/control.
 - Targets transfer of AI policies from simulation to the physical Ranger for real-world control.
