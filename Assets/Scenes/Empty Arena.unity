@@ -279,9 +279,6 @@ MonoBehaviour:
   meUltrasonicSensorType: 1
   rangerPosition:
   - {x: 9975, y: 10001, z: 10025}
-  - {x: 9975, y: 10001, z: 9975}
-  - {x: 10025, y: 10001, z: 9975}
-  - {x: 10025, y: 10001, z: 10025}
   terminal: {fileID: 535944821}
   bleTerminal: {fileID: 889943090}
 --- !u!1 &330585543
@@ -613,7 +610,7 @@ Transform:
   m_GameObject: {fileID: 473088645}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 23.9, y: 2, z: 31.3}
+  m_LocalPosition: {x: 23.9, y: 2, z: 33.4}
   m_LocalScale: {x: 41.125, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
