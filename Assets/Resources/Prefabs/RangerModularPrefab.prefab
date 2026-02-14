@@ -216,10 +216,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   terminalDisplay: {fileID: 0}
+  agentControlled: 0
   FORWARD_SCAN_ANGLE: 60
-  MIN_DISTANCE: 7
+  MIN_DISTANCE: 10
   MIN_DISTANCE_MULT: 1
-  MAX_SPEED: 180
+  MAX_SPEED: 18
   WIDE_SCAN_ANGLE: 180
   WAIT_SERVO_POSITION: 1.5
   TURN_SPEED_MULT: 1.5

@@ -13,7 +13,7 @@ namespace MeEncoderOnBoard
             this.transform.Rotate(Vector3.left * currentSpeed);
         }
 
-        public void SetMotorSpeed(int speed)
+        public void SetCurrentSpeed(float speed)
         {
             currentSpeed = speed * speedMultiplier;
         }
@@ -25,7 +25,7 @@ namespace MeEncoderOnBoard
 
         public float GetCurrentSpeed()
         {
-            return currentSpeed;
+            return currentSpeed / speedMultiplier;
         }
 
         public void SetPosition(float position)

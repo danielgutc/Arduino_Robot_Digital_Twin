@@ -3,8 +3,8 @@
     public interface IMeEncoderOnBoard
     {
         float GetCurrentSpeed();
+        void SetCurrentSpeed(float speed);
         float GetPosition();
-        void SetMotorSpeed(int speed);
         void SetPosition(float position);
         void StopMotor();
     }

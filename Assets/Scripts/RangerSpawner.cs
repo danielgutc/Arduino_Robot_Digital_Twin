@@ -68,7 +68,7 @@ public class RangerSpawner : MonoBehaviour
                 .SetTerminal(terminal)
                 .SetBleTerminal(bleTerminal)
                 .Build();
-;
+
             ranger.transform.position = rangerPosition[i];
         }
         
