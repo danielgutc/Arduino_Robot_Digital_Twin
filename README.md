@@ -43,11 +43,16 @@ The robot is built from interchangeable module interfaces:
 2. Use Unity Editor version `6000.0.64f1`.
 3. Open scene: `Assets/Scenes/Empty Arena.unity`.
 
-### 2) Verify ML-Agents package path
-`Packages/manifest.json` currently references a local path:
+### 2) Configure ML-Agents from a cloned repository
+This project uses a local package path (not a Package Manager UI install).
+
+Reference installation docs:
+- https://docs.unity3d.com/Packages/com.unity.ml-agents@4.0/manual/Installation.html
+
+`Packages/manifest.json` currently references:
 - `"com.unity.ml-agents": "file:E:/Users/danig/Workspace/Unity/ml-agents-develop/com.unity.ml-agents"`
 
-If your machine uses a different path, update this entry or replace with your preferred ML-Agents package source.
+If you cloned ML-Agents in a different location, update this path to your local clone.
 
 ### 3) Python side (for training)
 Install ML-Agents Python tools in your environment (example):
@@ -91,10 +96,7 @@ To run telemetry-backed mode:
 - `Assets/Scripts/MeUltrasonicSensor/PhysicalMeUltrasonicSensor.cs` has `GetDistanceCm()` not implemented.
 - BLE configuration values are currently hardcoded in `RangerBle`.
 
-## Recommended Next Improvements
-1. Implement write commands for physical actuator classes.
-2. Complete `PhysicalMeUltrasonicSensor.GetDistanceCm()`.
-3. Move BLE identifiers and controller constants to external config.
-4. Add automated PlayMode tests for sensor adapters and reward logic.
-
-
+## References
+- Unity ML-Agents installation (official docs): https://docs.unity3d.com/Packages/com.unity.ml-agents@4.0/manual/Installation.html
+- Unity ML-Agents package manual: https://docs.unity3d.com/Packages/com.unity.ml-agents@4.0/manual/index.html
+- Unity ML-Agents GitHub repository: https://github.com/Unity-Technologies/ml-agents
