@@ -1,11 +1,13 @@
-# Arduino Robot Digital Twin
+# Arduino Robot Virtual Twin
 
-Unity-based digital twin for a Makeblock Ranger-style differential-drive robot, with interchangeable simulated/physical components and ML-Agents integration.
+Unity-based virtual twin for a Makeblock Ranger-style differential-drive robot, with interchangeable simulated/physical components and ML-Agents integration. In practice, it runs a real-time software counterpart in Unity where the same control loop can consume simulated sensors or live BLE telemetry, letting you test behavior and learning workflows against a synchronized robot model. A core goal is to enable the physical Ranger to be controlled by artificial intelligence policies developed and validated in the twin. Compared with a digital twin, which is often lifecycle-focused for monitoring and analytics of a deployed asset, this project is focused on interactive simulation, control validation, and training-time experimentation.
 
 ## What This Project Does
 - Simulates a Ranger robot in Unity with modular sensors/actuators.
+- Accelerate the arduino code development cycle providing a similar code structure and language (c vs c#). 
 - Supports hybrid setups where Unity reads telemetry from a physical robot over BLE.
 - Provides an `ArduinoController` behavior loop and an ML-Agents `RangerAgent` for learning/control.
+- Targets transfer of AI policies from simulation to the physical Ranger for real-world control.
 - Includes PPO and imitation-learning training configs.
 
 ## Tech Stack
@@ -41,16 +43,24 @@ The robot is built from interchangeable module interfaces:
 2. Use Unity Editor version `6000.0.64f1`.
 3. Open scene: `Assets/Scenes/Empty Arena.unity`.
 
-### 2) Verify ML-Agents package path
-`Packages/manifest.json` currently references a local path:
+### 2) Configure ML-Agents from a cloned repository
+This project uses a local package path (not a Package Manager UI install).
+
+Reference installation docs:
+- https://docs.unity3d.com/Packages/com.unity.ml-agents@4.0/manual/Installation.html
+
+`Packages/manifest.json` currently references:
 - `"com.unity.ml-agents": "file:E:/Users/danig/Workspace/Unity/ml-agents-develop/com.unity.ml-agents"`
 
-If your machine uses a different path, update this entry or replace with your preferred ML-Agents package source.
+If you cloned ML-Agents in a different location, update this path to your local clone.
 
 ### 3) Python side (for training)
-Install ML-Agents Python tools in your environment (example):
+This project currently uses older PyTorch version:
+- PyTorch: `2.2.2+cu121`
+
+Install ML-Agents and keep these versions aligned in your training environment (example):
 ```bash
-pip install mlagents
+pip install torch==2.2.2+cu121 mlagents==1.1.0
 ```
 
 ## Running the Simulation
@@ -89,8 +99,7 @@ To run telemetry-backed mode:
 - `Assets/Scripts/MeUltrasonicSensor/PhysicalMeUltrasonicSensor.cs` has `GetDistanceCm()` not implemented.
 - BLE configuration values are currently hardcoded in `RangerBle`.
 
-## Recommended Next Improvements
-1. Implement write commands for physical actuator classes.
-2. Complete `PhysicalMeUltrasonicSensor.GetDistanceCm()`.
-3. Move BLE identifiers and controller constants to external config.
-4. Add automated PlayMode tests for sensor adapters and reward logic.
+## References
+- Unity ML-Agents installation (official docs): https://docs.unity3d.com/Packages/com.unity.ml-agents@4.0/manual/Installation.html
+- Unity ML-Agents package manual: https://docs.unity3d.com/Packages/com.unity.ml-agents@4.0/manual/index.html
+- Unity ML-Agents GitHub repository: https://github.com/Unity-Technologies/ml-agents
