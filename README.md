@@ -55,9 +55,12 @@ Reference installation docs:
 If you cloned ML-Agents in a different location, update this path to your local clone.
 
 ### 3) Python side (for training)
-Install ML-Agents Python tools in your environment (example):
+This project currently uses older PyTorch version:
+- PyTorch: `2.2.2+cu121`
+
+Install ML-Agents and keep these versions aligned in your training environment (example):
 ```bash
-pip install mlagents
+pip install torch==2.2.2+cu121 mlagents==1.1.0
 ```
 
 ## Running the Simulation
