@@ -1,11 +1,12 @@
-# Arduino Robot Digital Twin
+# Arduino Robot Virtual Twin
 
-Unity-based digital twin for a Makeblock Ranger-style differential-drive robot, with interchangeable simulated/physical components and ML-Agents integration.
+Unity-based virtual twin for a Makeblock Ranger-style differential-drive robot, with interchangeable simulated/physical components and ML-Agents integration. In practice, it runs a real-time software counterpart in Unity where the same control loop can consume simulated sensors or live BLE telemetry, letting you test behavior and learning workflows against a synchronized robot model. A core goal is to enable the physical Ranger to be controlled by artificial intelligence policies developed and validated in the twin. Compared with a digital twin, which is often lifecycle-focused for monitoring and analytics of a deployed asset, this project is focused on interactive simulation, control validation, and training-time experimentation.
 
 ## What This Project Does
 - Simulates a Ranger robot in Unity with modular sensors/actuators.
 - Supports hybrid setups where Unity reads telemetry from a physical robot over BLE.
 - Provides an `ArduinoController` behavior loop and an ML-Agents `RangerAgent` for learning/control.
+- Targets transfer of AI policies from simulation to the physical Ranger for real-world control.
 - Includes PPO and imitation-learning training configs.
 
 ## Tech Stack
@@ -94,3 +95,7 @@ To run telemetry-backed mode:
 2. Complete `PhysicalMeUltrasonicSensor.GetDistanceCm()`.
 3. Move BLE identifiers and controller constants to external config.
 4. Add automated PlayMode tests for sensor adapters and reward logic.
+
+
+
+
